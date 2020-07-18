@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const multer = require('multer');
+const { Product }  = require('../models/product')
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -25,18 +26,30 @@ router.route('/hello').post((req,res) => {
 })
 
 
-router.post("/upload", (req, res) => {
+router.post("/uploadImage", (req, res) => {
 
     upload(req, res, err => {
         if (err) {
             console.log(err)
             return res.json({ success: false, err })
         }
-        console.log(res.req.file)
+        
         return res.json({ success: true, image: res.req.file.filename, fileName: res.req.file.filename })
     })
 
 });
+
+router.route('/uploadProduct').post((req,res) => {
+    const product = new Product(req.body)
+    product.save((err) => {
+        if(err) { 
+            console.log(err)
+            return res.status(400).json({success : false,err}) 
+        }
+
+        return res.status(200).json({success: true })
+    })
+})
 
 
 module.exports = router;

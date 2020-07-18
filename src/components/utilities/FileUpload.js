@@ -12,7 +12,7 @@ function FileUpload(props) {
         }
         formdata.append("file", files[0])
 
-        axios.post('http://localhost:5000/product/upload', formdata, config)
+        axios.post('http://localhost:5000/product/uploadImage', formdata, config)
             .then(response => {
                 if (response.data.success) {
                     //do something
@@ -26,6 +26,14 @@ function FileUpload(props) {
             })
     }
 
+
+    const onDelete = (image,index) => {
+        const cur = Images.indexOf(image);
+        let newImages = [...Images];
+        newImages.splice(cur,1);
+        setImages(newImages)
+        props.refreshfunction(newImages)
+    }
    
     return (
         <div>
@@ -41,7 +49,7 @@ function FileUpload(props) {
            <div style = {{display : 'flex' , width : '350px',height: '240px',overflowX : 'scroll'}} >
                
                 {Images.map((image, index) => (
-                    <div onClick >
+                    <div onClick = { () => onDelete(image,index) } >
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`http://localhost:5000/uploads/${image}`}  alt={`productImg-${index}`} />
                     </div>
                 ))}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FileUpload from '../utilities/FileUpload'
-
+import axios from 'axios'
 
 const Continents = [
     { key: 1, value: "Africa" },
@@ -13,7 +13,7 @@ const Continents = [
 ]
 
 
-function UploadProduct() {
+function UploadProduct(props) {
 
     const [TitleValue, setTitleValue] = useState("");
     const [DescriptionValue, setDescriptionValue] = useState("")
@@ -41,13 +41,37 @@ function UploadProduct() {
         setImages(newImages)
        // console.log(newImages)
     }
+    const onSubmit = event => {
+       const variables = {
+           writer : 'InsertObjectID',
+           title : TitleValue,
+           description : DescriptionValue,
+           price : PriceValue,
+           images : Images,
+           continents : ContinentValue, 
+        }
+        axios.post('http://localhost:5000/product/uploadProduct',variables)
+            .then(response => {
+                event.preventDefault();
+                if(response.data.success){
+                    console.log('done')
+                    alert('Product uploaded successfully')
+                   window.location = '/'
+                }
+                else {
+                    console.log('not done')
+                    alert('Failed to Upload ')
+                }
+            })
+    }
+
     return(
         <div className = "container">
             <div className = "container">
                 <h3>uploadProduct</h3>
             </div>
 
-            <form onSubmit >
+            <form >
 
                 <br />
                 <br />
@@ -84,7 +108,7 @@ function UploadProduct() {
                 <br />
 
                 <button
-                    onClick
+                    onClick = {onSubmit}
                 >
                     Submit
                 </button>
