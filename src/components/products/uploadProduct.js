@@ -19,7 +19,10 @@ function UploadProduct() {
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
     const [ContinentValue, setContinentValue] = useState("")
+    const [Images, setImages] = useState([])
 
+
+    
     const onTitleChange = (event) => {
         setTitleValue(event.currentTarget.value)
     }
@@ -33,7 +36,11 @@ function UploadProduct() {
     const onContinentsSelectChange = event => {
         setContinentValue(event.currentTarget.value)
     }
-
+    const updateImages = (newImages) => {
+        
+        setImages(newImages)
+       // console.log(newImages)
+    }
     return(
         <div className = "container">
             <div className = "container">
@@ -42,7 +49,9 @@ function UploadProduct() {
 
             <form onSubmit >
 
-                <FileUpload/>
+                <br />
+                <br />
+                <FileUpload refreshfunction = {updateImages} />
                 <br />
                 <br />
                 <label>Title</label>
@@ -53,7 +62,7 @@ function UploadProduct() {
                 <br />
                 <br />
                 <label>Description</label>
-                <textArea
+                <textarea
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
                 />

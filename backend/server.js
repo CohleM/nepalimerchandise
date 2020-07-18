@@ -27,10 +27,19 @@ connection.once('open', () => {
 // const usersRouter = require('./routes/users');
 
 const userAuthRouter = require('./routes/userAuth');
-
+const product = require('./routes/product');
 // app.use('/exercises', exerciseRouter);
 // app.use('/users', usersRouter);
 app.use('/users',userAuthRouter);
+app.use('/product',product);
+
+
+//var assetsPath = path.join(__dirname, '../uploads');
+//this shit hurts 
+//hurt me for 2days
+//be careful of file path structure
+app.use( '/uploads',express.static('../uploads'));
+
 
 app.listen(port, () => {
     console.log(`Server is running on : ${port} `);
