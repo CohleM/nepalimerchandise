@@ -63,6 +63,8 @@ function UploadProduct(props) {
                     alert('Failed to Upload ')
                 }
             })
+
+            //JOI validations remaining
     }
 
     return(

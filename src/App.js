@@ -9,6 +9,8 @@ import EditExercise from "./components/edit-exercise.component";
 import CreateExercise from "./components/create-exercise.component";
 import CreateUser from "./components/create-user.component";
 import UploadProduct from "./components/products/uploadProduct";
+import LandingPage from "./components/products/LandingPage";
+//             { <Route path = "/" exact component  = {ExerciseList} /> }
 
 function App() {
   return (
@@ -16,7 +18,7 @@ function App() {
         <div className= "container">
           <Navbar/>
           <br/>
-          <Route path = "/" exact component  = {ExerciseList} />
+          <Route path = "/" exact component  = {LandingPage} />
           <Route path="/edit/:id"  component={EditExercise} />
           <Route path="/create"  component={CreateExercise} />
           <Route path="/user"  component={CreateUser} />
