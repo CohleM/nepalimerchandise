@@ -1,43 +1,70 @@
 import React, { useEffect , useState } from 'react'
 import axios from 'axios'
 import { Card ,Col , Row } from 'antd';
+import ImageSlider from '../utilities/ImageSlider'
 
 const { Meta } = Card;;
 
 function LandingPage() {
     
         const [Products, setProducts] = useState([])
-   //useEffect is similar to  componentDidMount it executes before loading the actual page 
-    useEffect ( () => {
-      
-        axios.post('http://localhost:5000/product/getProducts',)
+        const [Skip, setSkip] = useState(0)
+        const [Limit, setLimit] = useState(8)
+
+        //useEffect is similar to  componentDidMount it executes before loading the actual page 
+
+        const getProducts = (variables) => {
+            axios.post('http://localhost:5000/product/getProducts',variables)
             .then(response => {
                 if(response.data.success) {
-                    setProducts(response.data.products)                
-                    console.log(response.data.products)
+                  //setProducts(response.data.products)   
+                    setProducts([...Products, ...response.data.products])             
+                   // console.log(response.data.products)
                 }
                 else {  
                     alert('Failed to fetch the products')
                     console.log(response.err)
                 }
             })
-            
-    },[])
 
+        }
+
+        useEffect ( () => {
+            const variables = {
+            skip : Skip,
+            limit : Limit,
+        }
+            getProducts(variables) 
+        },[])
+
+
+    const onLoadMore = () => {
+        let skip = Skip + Limit;
+        
+        const variables = {
+            skip : skip,
+            limit : Limit,
+        }
+        getProducts(variables)
+        setSkip(skip);
+
+    }
  
     const renderCards = Products.map((product, index) => {
 
-        return <Col lg={6} md={8} xs={24}>
+        return <Col lg={6} md={8} xs={24} >
             <Card
     hoverable
-    style={{ width: 240 }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+    style={{ width: '240px' }}
+    cover 
   >
-    <Meta title="Europe Street beat" description="www.instagram.com" />
-  </Card>,
+    <Meta title={product.title} description={product.price} />
+  </Card>
         </Col>
     })
 
+
+    
 
 
 
@@ -68,7 +95,7 @@ function LandingPage() {
     <br/> 
     <br/>
        <div style = {{ display : 'flex' , justifyContent : 'center' }}>
-           <button> Load More </button>
+           <button onClick = {onLoadMore}> Load More </button>
        </div>
 
 

@@ -53,7 +53,14 @@ router.route('/uploadProduct').post((req,res) => {
 
 router.route('/getProducts').post((req,res) => {
 
+    let order = req.body.order ? req.body.order : "desc";
+    let sortBy =  req.body.sortBy ? req.body.sortBy : "_id"
+    let skip = parseInt(req.body.skip)
+    let limit = req.body.limit ?  parseInt(req.body.limit) : 100
+
     Product.find()
+        .skip(skip)
+        .limit(limit)
         .exec((err,products) => {
             if(err) { 
                console.log(err) 
