@@ -2,7 +2,7 @@ import React, { useEffect , useState } from 'react'
 import axios from 'axios'
 import { Card ,Col , Row } from 'antd';
 import ImageSlider from '../utilities/ImageSlider'
-
+import CheckBox from '../utilities/CheckBox'
 const { Meta } = Card;;
 
 function LandingPage() {
@@ -52,7 +52,7 @@ function LandingPage() {
 
     }
  
-    const renderCards = Products.map((product, index) => {
+    const renderCards  =  Products.map((product, index) => {
 
         return <Col lg={6} md={8} xs={24} >
             <Card
@@ -76,7 +76,7 @@ function LandingPage() {
                 <h2>Nepali Products</h2>
             </div>
         {/* Filter */} 
-
+        <CheckBox /> 
         {/* Search   */} 
 
        {Products.length === 0 ?
