@@ -66,7 +66,7 @@ router.route('/getProducts').post((req,res) => {
                console.log(err) 
                 return res.status(400).json({ success : false,err }) } 
 
-            return res.status(200).json({success : true, products })
+            return res.status(200).json({success : true, products, postSize : products.length })
             
         })
 })
