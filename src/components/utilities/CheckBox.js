@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Collapse , Checkbox } from 'antd'
 
- const {Panel} = Collapse;
-
+const {Panel} = Collapse;
 const continents = [
     {
         "_id" : 1,
@@ -37,16 +36,30 @@ const continents = [
     }, 
 ]
 
+
+
 function CheckBox(props) {
 
+    const [Checked, setChecked] = useState([])
+
+
+
+    const handleToggle = (value) => {
+        const currentIndex =  Checked.indexOf(value)
+        const newChecked = [...Checked]
+        if(currentIndex === -1) newChecked.push(value)
+        else newChecked.splice(currentIndex,1)
+        setChecked(newChecked)
+        props.handleFilters(newChecked)
+    }
     const renderCheckBox = () => 
         continents.map((value,index) => {
             return (
             <React.Fragment key = {index}>
                 <Checkbox
-                onChange 
+                onChange = { ()=> handleToggle(value._id) } 
                 type = "checkbox" 
-                checked 
+                checked = {Checked.indexOf(value._id) === -1 ? false: true }
                 
                /> 
                <span>{value.name}</span>

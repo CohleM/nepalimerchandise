@@ -11,15 +11,21 @@ function LandingPage() {
         const [Skip, setSkip] = useState(0)
         const [Limit, setLimit] = useState(8)
         const [PostSize, setPostSize] = useState(0)
-
+        const [Filters, setFilters] = useState({
+            continents : [],
+            price : []
+        })
         //useEffect is similar to  componentDidMount it executes before loading the actual page 
 
         const getProducts = (variables) => {
             axios.post('http://localhost:5000/product/getProducts',variables)
             .then(response => {
                 if(response.data.success) {
+
+                    console.log(variables.loadmore)
                   //setProducts(response.data.products)   
-                    setProducts([...Products, ...response.data.products]) 
+                    if(variables.loadmore) setProducts([...Products, ...response.data.products]) 
+                    else setProducts(response.data.products) 
                     setPostSize(response.data.postSize)
                    // console.log(response.data.products)
                 }
@@ -46,7 +52,11 @@ function LandingPage() {
         const variables = {
             skip : skip,
             limit : Limit,
+            loadmore : true,
+            filters : Filters,
         }
+
+        console.log(Products)
         getProducts(variables)
         setSkip(skip);
 
@@ -56,14 +66,34 @@ function LandingPage() {
 
         return <Col lg={6} md={8} xs={24} >
             <Card
-    hoverable
-    style={{ width: '240px' }}
-    cover 
-  >
-    <Meta title={product.title} description={product.price} />
-  </Card>
-        </Col>
+                hoverable
+                style={{ width: '240px' }}
+                cover 
+            >
+                <Meta title={product.title} description={product.price} />
+            </Card>
+            </Col>
     })
+
+    const showFilteredResults = (filters) => {
+
+        const variables = {
+            skip : 0,
+            limit : Limit,
+            filters : filters 
+        }
+        setSkip(0)
+        getProducts(variables)
+    }
+    const handleFilters = (filters,category) => {
+        console.log(filters)
+        
+        const newFilters = {...Filters }
+        newFilters[category]  = filters
+        showFilteredResults(newFilters)
+       setFilters(newFilters) 
+    
+    }
 
 
     
@@ -76,7 +106,10 @@ function LandingPage() {
                 <h2>Nepali Products</h2>
             </div>
         {/* Filter */} 
-        <CheckBox /> 
+        <CheckBox 
+            handleFilters = {filters => handleFilters(filters,"continents")}
+        
+        /> 
         {/* Search   */} 
 
        {Products.length === 0 ?
