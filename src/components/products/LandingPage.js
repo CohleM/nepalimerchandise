@@ -5,6 +5,7 @@ import ImageSlider from '../utilities/ImageSlider'
 import CheckBox from '../utilities/CheckBox'
 import {continents,price} from '../utilities/Datas'
 import RadioBox from '../utilities/RadioBox'
+import SearchFeature from '../utilities/SearchFeature'
 const { Meta } = Card;;
 
 function LandingPage() {
@@ -17,6 +18,7 @@ function LandingPage() {
             continents : [],
             price : []
         })
+        const [Searchitems, setSearchitems] = useState("")
         //useEffect is similar to  componentDidMount it executes before loading the actual page 
 
         const getProducts = (variables) => {
@@ -118,6 +120,20 @@ function LandingPage() {
     
     }
 
+    const updateSearchItems = (newSearchItems) => {
+        setSearchitems(newSearchItems)
+                
+        const variables = {
+            skip : 0,
+            limit : Limit,
+            filters : Filters,
+            searchItem : newSearchItems 
+        }
+        getProducts(variables)
+        console.log(newSearchItems)
+        setSkip(0)
+    }
+
 
     
 
@@ -133,9 +149,17 @@ function LandingPage() {
             handleFilters = {filters => handleFilters(filters,"continents")}
         
         />
-
+    
         <RadioBox list = {price}  handleFilters = {filters => handleFilters(filters,"price")} />
-        {/* Search   */} 
+        
+        
+        <br />
+        <br />
+        {/* Search   */}
+
+        <SearchFeature refreshSearch = {updateSearchItems} /> 
+        <br />
+        <br />
 
        {Products.length === 0 ?
                 <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>

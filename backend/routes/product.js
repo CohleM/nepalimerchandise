@@ -58,6 +58,7 @@ router.route('/getProducts').post((req,res) => {
     let skip = parseInt(req.body.skip)
     let limit = req.body.limit ?  parseInt(req.body.limit) : 100
     let filters = req.body.filters
+    let term = req.body.searchItem
     let findArgs = {
 
     }
@@ -81,7 +82,9 @@ router.route('/getProducts').post((req,res) => {
    // console.log(req.body.filters["continents"])
     console.log(findArgs)
 
-    Product.find(findArgs)
+    if(term) {
+        Product.find(findArgs)
+        .find({ $text: { $search: term } })
         .skip(skip)
         .limit(limit)
         .exec((err,products) => {
@@ -92,6 +95,22 @@ router.route('/getProducts').post((req,res) => {
             return res.status(200).json({success : true, products, postSize : products.length })
             
         })
+    }
+    else {
+        Product.find(findArgs)
+        .skip(skip)
+        .limit(limit)
+        .exec((err,products) => {
+            if(err) { 
+               console.log(err) 
+                return res.status(400).json({ success : false,err }) } 
+
+            return res.status(200).json({success : true, products, postSize : products.length })
+            
+        })
+    }
+
+
 })
 
 module.exports = router;

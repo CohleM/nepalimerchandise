@@ -40,5 +40,17 @@ const productSchema = mongoose.Schema({
    }
 },{timestamps : true })
 
+//creating index for searching items
+productSchema.index({
+    title : 'text',
+    description : 'text'
+},{
+    //weight defines which will be searched first , bigger has higher priority
+    weights : {
+        title : 5,
+        description : 1,
+    }
+})
+
 const Product = mongoose.model('Product',productSchema)
 module.exports = { Product }
