@@ -11,7 +11,7 @@ import CreateUser from "./components/create-user.component";
 import UploadProduct from "./components/products/uploadProduct";
 import LandingPage from "./components/products/LandingPage";
 //             { <Route path = "/" exact component  = {ExerciseList} /> }
-
+import DetailedProduct from "./components/products/DetailedProduct"
 function App() {
   return (
       <Router>
@@ -23,6 +23,8 @@ function App() {
           <Route path="/create"  component={CreateExercise} />
           <Route path="/user"  component={CreateUser} />
           <Route path="/product/upload"  component={UploadProduct} />
+
+          <Route path="/product/:productId"  component={DetailedProduct} />
         </div>
       </Router>
   );

@@ -111,6 +111,29 @@ router.route('/getProducts').post((req,res) => {
     }
 
 
+}
+
+
+)
+
+
+//product/product_by_id?id=${productId}&type=single 
+router.route('/product_by_id').get((req,res) => {
+    const type = req.query.type
+    const productIds = req.query.id
+
+    if(type === "array") {
+
+    }
+
+    Product.find({'_id' : { $in : productIds }})
+        .exec((err,product) => {
+            if(err) res.status(400).send(err)
+            else res.status(200).send(product)
+            
+        })
+
 })
+
 
 module.exports = router;
