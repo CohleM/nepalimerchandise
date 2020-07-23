@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Card ,Col , Row } from 'antd';
 import ImageSlider from '../utilities/ImageSlider'
 import CheckBox from '../utilities/CheckBox'
+import {continents,price} from '../utilities/Datas'
+import RadioBox from '../utilities/RadioBox'
 const { Meta } = Card;;
 
 function LandingPage() {
@@ -22,7 +24,7 @@ function LandingPage() {
             .then(response => {
                 if(response.data.success) {
 
-                    console.log(variables.loadmore)
+                   // console.log(variables.loadmore)
                   //setProducts(response.data.products)   
                     if(variables.loadmore) setProducts([...Products, ...response.data.products]) 
                     else setProducts(response.data.products) 
@@ -85,13 +87,34 @@ function LandingPage() {
         setSkip(0)
         getProducts(variables)
     }
+
+    const handlePrice = (value) => {
+        let data = price
+        let array = []
+        for(let key in data) {
+            if(data[key]._id === parseInt(value,10)) {
+                array = data[key].array
+            }
+        }
+        return array
+    }
     const handleFilters = (filters,category) => {
-        console.log(filters)
-        
+        //console.log(filters)
+    
+
+
+
         const newFilters = {...Filters }
+      // console.log(newFilters)
         newFilters[category]  = filters
+
+        if(category === "price") {
+            newFilters[category] = handlePrice(filters)
+           
+        }
         showFilteredResults(newFilters)
        setFilters(newFilters) 
+       console.log(newFilters)
     
     }
 
@@ -106,10 +129,12 @@ function LandingPage() {
                 <h2>Nepali Products</h2>
             </div>
         {/* Filter */} 
-        <CheckBox 
+        <CheckBox list = {continents}
             handleFilters = {filters => handleFilters(filters,"continents")}
         
-        /> 
+        />
+
+        <RadioBox list = {price}  handleFilters = {filters => handleFilters(filters,"price")} />
         {/* Search   */} 
 
        {Products.length === 0 ?
