@@ -15,7 +15,7 @@ import DetailedProduct from "./components/products/DetailedProduct"
 function App() {
   return (
       <Router>
-        <div className= "container">
+        {/* <div className= "container"> */}
           <Navbar/>
           <br/>
           <Switch>
@@ -28,7 +28,7 @@ function App() {
           </Switch>
 
          
-        </div>
+        {/* </div> */}
       </Router>
   );
 //haha
