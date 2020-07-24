@@ -1,21 +1,41 @@
 import React, {useState,useEffect} from 'react'
 import axios from 'axios'
+import {Row,Col} from 'antd'
+import ProductImage from './subProducts/ProductImage' 
+import ProductInfo from './subProducts/ProductInfo'
 function DetailedProduct(props) {
 
     const productId = props.match.params.productId
     const [Product, setProduct] = useState([])
     useEffect(() => {
-        axios.get(`/product/product_by_id?id=${productId}&type=single`)
+        axios.get(`http://localhost:5000/product/product_by_id?id=${productId}&type=single`)
             .then(response => {
                 setProduct(response.data[0])
+                console.log(response.data[0])
             })
+            .catch(err => {
+                console.log(err)
+            })
+
+
 
 
     }, [])
     return (
         <div>
-            productPage
+            
             {console.log(props.match.params.productId)}
+            <div style = {{display:'flex' , justifyContent : 'Center'}} >
+    <h2>{Product.title}</h2>
+            </div>
+            <Row gutter = {[16,16]}>
+                <Col lg={12} xs={24} >
+                    <ProductImage detail = {Product} />
+                </Col>      
+                <Col lg={12} xs={24} >
+                    <ProductInfo detail = {Product} />
+                </Col>
+            </Row>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 
 
 import Navbar from "./components/navbar.component"
@@ -18,13 +18,16 @@ function App() {
         <div className= "container">
           <Navbar/>
           <br/>
-          <Route path = "/" exact component  = {LandingPage} />
-          <Route path="/edit/:id"  component={EditExercise} />
-          <Route path="/create"  component={CreateExercise} />
-          <Route path="/user"  component={CreateUser} />
-          <Route path="/product/upload"  component={UploadProduct} />
+          <Switch>
+          <Route exact path = "/" exact component  = {LandingPage} />
+          <Route exact path="/edit/:id"  component={EditExercise} />
+          <Route exact path="/create"  component={CreateExercise} />
+          <Route exact path="/product/upload"  component={UploadProduct} />
+          <Route  exact path="/user"  component={CreateUser} />
+          <Route exact path="/product/:productId"  component={DetailedProduct}  />  
+          </Switch>
 
-          <Route path="/product/:productId"  component={DetailedProduct} />
+         
         </div>
       </Router>
   );

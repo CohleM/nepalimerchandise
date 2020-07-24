@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const multer = require('multer');
-const { Product }  = require('../models/product')
+const { Product }  = require('../models/product');
+const product = require('../models/product');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -118,9 +119,11 @@ router.route('/getProducts').post((req,res) => {
 
 
 //product/product_by_id?id=${productId}&type=single 
-router.route('/product_by_id').get((req,res) => {
+router.route("/product_by_id").get((req,res) => {
     const type = req.query.type
     const productIds = req.query.id
+
+    console.log(productIds)
 
     if(type === "array") {
 
@@ -130,6 +133,7 @@ router.route('/product_by_id').get((req,res) => {
         .exec((err,product) => {
             if(err) res.status(400).send(err)
             else res.status(200).send(product)
+            console.log(product)
             
         })
 
