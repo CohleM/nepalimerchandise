@@ -2,12 +2,13 @@ const router = require('express').Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const {registerValidation,loginValidation } = require('../validations/userValidation');
+const jwt = require('jsonwebtoken')
+const auth = require('../middlewares/auth')
 
-
-
-router.route('/').get((req,res) => {
+router.route('/').get(auth,(req,res) => {
     res.send('whaup biatch');
     console.log('whats up motherfucker');
+    console.log(req.user)
 })
 router.route('/register').post(async (req,res) => {
     const {error} = registerValidation(req.body);
@@ -30,10 +31,30 @@ router.route('/register').post(async (req,res) => {
         password : hashPassword,  
     });
 
-    await user.save()
-        .then(() => res.send(user))
-        .catch(err =>  res.status(400).send(err))
+    // await user.save()
+    //     .then((user) => res.send(user))
+    //     .catch(err =>  res.status(400).send(err))
     
+    
+    await user.save()
+        .then((user) => {
+            //Signing jwt token
+            jwt.sign (
+                //payload : the thing we need to take in to verify token
+                {id : user._id},
+                'SEcretKey',
+                (err,token) => {
+                    if (err) res.status(400).send(err)
+                    else res.json({
+                        token,
+                        user
+
+                    })
+                }
+            )
+        })
+        .catch(err =>  res.status(400).send(err))
+
 
 });
 
@@ -51,17 +72,36 @@ router.route('/login').post(async (req, res) => {
 
         const checkIf = await bcrypt.compareSync(req.body.password, user.password);
         if (!checkIf) return res.status(400).send('password doesnt match');
+
+        jwt.sign (
+            //payload : the thing we need to take in to verify token
+            {id : user._id},
+            'SEcretKey',
+            (err,token) => {
+                if (err) res.status(400).send(err)
+                else res.json({
+                    token,
+                    user
+    
+                })
+            }
+        )
+
     }
     catch(err) {
         res.status(400).send(err);
     }
    
 
-    res.send('logged in!');
+    // res.send('logged in!');
 
 
 });
 
+//Checking if authorization works
+router.get('/getinfo', auth , (req,res) => {
+    res.json(req.user)
+})
 
 
 

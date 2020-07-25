@@ -28,6 +28,12 @@ function ProductInfo(props) {
                     {Product.description}
                 </Descriptions.Item>
             </Descriptions>
+            <br></br>
+            <Button 
+                onClick  
+            >
+                Add to Cart
+            </Button>
             
         </div>
     )
