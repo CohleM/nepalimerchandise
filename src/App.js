@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import registerUser from "./components/users/registerUser";
 import Navbar from "./components/navbar.component";
 import ExerciseList from "./components/exercises-list.component";
 import EditExercise from "./components/edit-exercise.component";
@@ -33,6 +33,7 @@ function App() {
 					<Route exact path="/product/upload" component={UploadProduct} />
 					<Route exact path="/user" component={CreateUser} />
 					<Route exact path="/product/:productId" component={DetailedProduct} />
+					<Route exact path="/register" component={registerUser} />
 				</Switch>
 
 				{/* </div> */}

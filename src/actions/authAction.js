@@ -12,25 +12,27 @@ import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
 //Checking token and loading user
 
+//initially this function is created and takes in two parameters
 export const loadUser = () => (dispatch, getState) => {
+	//dipathing means firing action to the reducers
 	dispatch({ type: USER_LOADING });
 
 	//get token from localstorage
-	const token = getState().auth.token;
+	// const token = getState().auth.token;
 
-	//headers
-	const config = {
-		headers: {
-			"Content-type": "application/json",
-		},
-	};
+	// //headers
+	// const config = {
+	// 	headers: {
+	// 		"Content-type": "application/json",
+	// 	},
+	// };
 
-	if (token) {
-		config.headers["x-auth-token"] = token;
-	}
+	// if (token) {
+	// 	config.headers["x-auth-token"] = token;
+	// }
 	//axios.get takes in an object of headers
 	axios
-		.get("http://localhost:5000/users/getinfo", config)
+		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
 		.then((res) => {
 			dispatch({
 				type: USER_LOADED,
@@ -43,4 +45,19 @@ export const loadUser = () => (dispatch, getState) => {
 				type: AUTH_ERROR,
 			});
 		});
+};
+
+export const tokenConfig = (getState) => {
+	const token = getState().auth.token;
+
+	//headers
+	const config = {
+		headers: {
+			"Content-type": "application/json",
+		},
+	};
+
+	if (token) {
+		config.headers["x-auth-token"] = token;
+	}
 };
