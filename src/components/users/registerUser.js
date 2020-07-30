@@ -31,9 +31,6 @@ function RegisterUser(props) {
 		// this is register action
 
 		dispatch(register(newUser));
-
-		console.log(isAuthenticated);
-		console.log(data);
 	};
 
 	return (

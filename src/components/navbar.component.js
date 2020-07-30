@@ -30,6 +30,12 @@ export default class Navbar extends Component {
 								uploadproduct
 							</Link>
 						</li>
+
+						<li className="navbar-item">
+							<Link exact to="/users/logout" className="nav-link">
+								logout
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</nav>

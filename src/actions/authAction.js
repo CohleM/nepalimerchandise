@@ -100,3 +100,9 @@ export const register = ({ username, email, password }) => (dispatch) => {
 			});
 		});
 };
+
+export const logout = () => (dispatch) => {
+	dispatch({
+		type: LOGOUT_SUCCESS,
+	});
+};
