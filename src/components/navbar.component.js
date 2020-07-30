@@ -36,6 +36,12 @@ export default class Navbar extends Component {
 								logout
 							</Link>
 						</li>
+
+						<li className="navbar-item">
+							<Link exact to="/users/login" className="nav-link">
+								Login
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</nav>

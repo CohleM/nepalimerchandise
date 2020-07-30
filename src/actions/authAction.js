@@ -111,6 +111,37 @@ export const register = ({ username, email, password }) => (dispatch) => {
 		});
 };
 
+export const login = ({ email, password }) => (dispatch) => {
+	const config = {
+		"Content-type": "application/json",
+	};
+
+	axios
+		.post(
+			"http://localhost:5000/users/login",
+			{
+				email,
+				password,
+			},
+			config
+		)
+		.then((res) => {
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+			);
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+			console.log(err);
+		});
+};
+
 export const logout = () => (dispatch) => {
 	dispatch({
 		type: LOGOUT_SUCCESS,

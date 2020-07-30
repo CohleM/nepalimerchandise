@@ -3,9 +3,9 @@ import { Form, Input, Button, Checkbox } from "antd";
 import PropTypes from "prop-types";
 import { connect, useDispatch, useSelector } from "react-redux";
 
-import { register } from "../../actions/authAction";
-function RegisterUser(props) {
-	const [username, setusername] = useState("");
+import { login } from "../../actions/authAction";
+function Login(props) {
+	//	const [username, setusername] = useState("");
 	const [email, setemail] = useState("");
 	const [password, setpassword] = useState("");
 
@@ -21,31 +21,28 @@ function RegisterUser(props) {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		console.log(username, email, password);
+		console.log(email, password);
 		const newUser = {
-			username,
 			email,
 			password,
 		};
 
 		// this is register actioni
 
-		dispatch(register(newUser));
+		dispatch(login(newUser));
 	};
 
 	return (
 		<div>
 			<Form>
-				<label>Username</label>{" "}
-				<Input onChange={(e) => setusername(e.target.value)} />
-				<label>email</label>{" "}
+				<label>email</label>
 				<Input onChange={(e) => setemail(e.target.value)} />
-				<label>password</label>{" "}
+				<label>password</label>
 				<Input onChange={(e) => setpassword(e.target.value)} type="password" />
-				<Button onClick={handleOnSubmit}>Submit </Button>
+				<Button onClick={handleOnSubmit}>Login </Button>
 			</Form>
 		</div>
 	);
 }
 
-export default RegisterUser;
+export default Login;

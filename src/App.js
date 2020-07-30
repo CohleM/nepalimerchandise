@@ -16,6 +16,7 @@ import store from "./store";
 import { loadUser } from "./actions/authAction";
 import { useEffect } from "react";
 import Logout from "./components/users/Logout";
+import Login from "./components/users/Login";
 function App() {
 	useEffect(() => {
 		console.log(store);
@@ -37,6 +38,7 @@ function App() {
 					<Route exact path="/product/:productId" component={DetailedProduct} />
 					<Route exact path="/register" component={registerUser} />
 					<Route exact path="/users/logout" component={Logout} />
+					<Route exact path="/users/login" component={Login} />
 				</Switch>
 
 				{/* </div> */}
