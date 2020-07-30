@@ -17,6 +17,7 @@ import { loadUser } from "./actions/authAction";
 import { useEffect } from "react";
 function App() {
 	useEffect(() => {
+		console.log(store);
 		store.dispatch(loadUser());
 	}, []);
 	return (

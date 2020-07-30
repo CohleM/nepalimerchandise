@@ -36,6 +36,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				...action.payload,
+				//payload must contain token and user object
 				isAuthenticated: true,
 				isLoading: false,
 			};

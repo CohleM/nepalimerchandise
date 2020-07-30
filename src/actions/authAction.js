@@ -16,8 +16,8 @@ import { returnErrors, clearErrors } from "./errorAction";
 export const loadUser = () => (dispatch, getState) => {
 	//dipathing means firing action to the reducers
 	dispatch({ type: USER_LOADING });
-
-	//get token from localstorage
+	console.log("loaduser executed");
+	// get token from localstorage
 	// const token = getState().auth.token;
 
 	// //headers
@@ -30,23 +30,24 @@ export const loadUser = () => (dispatch, getState) => {
 	// if (token) {
 	// 	config.headers["x-auth-token"] = token;
 	// }
-	//axios.get takes in an object of headers
-	axios
-		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
-		.then((res) => {
-			dispatch({
-				type: USER_LOADED,
-				payload: res.data,
-			});
-		})
-		.catch((err) => {
-			dispatch(returnErrors(err.response.data, err.response.status));
-			dispatch({
-				type: AUTH_ERROR,
-			});
-		});
+	// // axios.get takes in an object of headers
+	// axios
+	// 	.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+	// 	.then((res) => {
+	// 		dispatch({
+	// 			type: USER_LOADED,
+	// 			payload: res.data,
+	// 		});
+	// 	})
+	// 	.catch((err) => {
+	// 		dispatch(returnErrors(err.response.data, err.response.status));
+	// 		dispatch({
+	// 			type: AUTH_ERROR,
+	// 		});
+	// 	});
 };
 
+//Setsup the header
 export const tokenConfig = (getState) => {
 	const token = getState().auth.token;
 
@@ -60,4 +61,41 @@ export const tokenConfig = (getState) => {
 	if (token) {
 		config.headers["x-auth-token"] = token;
 	}
+};
+
+//Register user
+export const register = ({ username, email, password }) => (dispatch) => {
+	//headers
+	const config = {
+		"Content-type": "application/json",
+	};
+
+	//convert js object to json
+	const body = JSON.stringify({ username, email, password });
+	console.log(body);
+	//now we make a req to the server
+	console.log("this executed woow");
+	axios
+		.post("http://localhost:5000/users/register", {
+			name: username,
+			email: email,
+			password: password,
+		})
+		.then((res) => {
+			console.log("executed");
+			console.log(res.data);
+			dispatch({
+				type: REGISTER_SUCCESS,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			console.log(err.response);
+			dispatch(
+				returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+			);
+			dispatch({
+				type: REGISTER_FAIL,
+			});
+		});
 };
