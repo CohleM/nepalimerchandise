@@ -71,8 +71,9 @@ export const register = ({ username, email, password }) => (dispatch) => {
 	};
 
 	//convert js object to json
+	//this stringfy doesn't work fires up error
 	const body = JSON.stringify({ username, email, password });
-	console.log(body);
+	//console.log(body);
 	//now we make a req to the server
 	console.log("this executed woow");
 	axios
@@ -83,7 +84,7 @@ export const register = ({ username, email, password }) => (dispatch) => {
 		})
 		.then((res) => {
 			console.log("executed");
-			console.log(res.data);
+			//console.log(res.data);
 			dispatch({
 				type: REGISTER_SUCCESS,
 				payload: res.data,

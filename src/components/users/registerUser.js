@@ -4,15 +4,20 @@ import PropTypes from "prop-types";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { register } from "../../actions/authAction";
-function RegisterUser() {
+function RegisterUser(props) {
 	const [username, setusername] = useState("");
 	const [email, setemail] = useState("");
 	const [password, setpassword] = useState("");
 
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+	const data = useSelector((state) => state.auth);
 	const error = useSelector((state) => state.error);
 
 	const dispatch = useDispatch();
+	//very nice mofo saved me some time yollooo
+	useEffect(() => {
+		if (isAuthenticated) props.history.push("/");
+	}, [isAuthenticated]);
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
@@ -26,6 +31,9 @@ function RegisterUser() {
 		// this is register action
 
 		dispatch(register(newUser));
+
+		console.log(isAuthenticated);
+		console.log(data);
 	};
 
 	return (
