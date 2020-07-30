@@ -13,7 +13,7 @@ function auth(req, res, next) {
 		//     "id": "5f1c57068882ef2684e5083f",
 		//     "iat": 1595693638
 		// }
-
+		console.log("Authenticateddddd");
 		req.user = decodedValue;
 		next();
 	} catch (e) {

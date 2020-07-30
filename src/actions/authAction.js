@@ -20,6 +20,8 @@ export const loadUser = () => (dispatch, getState) => {
 	// get token from localstorage
 	// const token = getState().auth.token;
 
+	// console.log("token", token);
+
 	// //headers
 	// const config = {
 	// 	headers: {
@@ -30,21 +32,22 @@ export const loadUser = () => (dispatch, getState) => {
 	// if (token) {
 	// 	config.headers["x-auth-token"] = token;
 	// }
-	// // axios.get takes in an object of headers
-	// axios
-	// 	.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
-	// 	.then((res) => {
-	// 		dispatch({
-	// 			type: USER_LOADED,
-	// 			payload: res.data,
-	// 		});
-	// 	})
-	// 	.catch((err) => {
-	// 		dispatch(returnErrors(err.response.data, err.response.status));
-	// 		dispatch({
-	// 			type: AUTH_ERROR,
-	// 		});
-	// 	});
+	// axios.get takes in an object of headers
+	axios
+		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+		.then((res) => {
+			dispatch({
+				type: USER_LOADED,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			console.log("getinfo error", err);
+			dispatch(returnErrors(err.response.data, err.response.status));
+			// dispatch({
+			// 	type: AUTH_ERROR,
+			// });
+		});
 };
 
 //Setsup the header
@@ -61,6 +64,9 @@ export const tokenConfig = (getState) => {
 	if (token) {
 		config.headers["x-auth-token"] = token;
 	}
+
+	console.log(config);
+	return config;
 };
 
 //Register user
@@ -77,11 +83,15 @@ export const register = ({ username, email, password }) => (dispatch) => {
 	//now we make a req to the server
 	console.log("this executed woow");
 	axios
-		.post("http://localhost:5000/users/register", {
-			name: username,
-			email: email,
-			password: password,
-		})
+		.post(
+			"http://localhost:5000/users/register",
+			{
+				name: username,
+				email: email,
+				password: password,
+			},
+			config
+		)
 		.then((res) => {
 			console.log("executed");
 			//console.log(res.data);

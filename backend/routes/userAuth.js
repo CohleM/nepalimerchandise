@@ -183,6 +183,7 @@ router.route("/login").post(async (req, res) => {
 //Checking if authorization works
 router.get("/getinfo", auth, async (req, res) => {
 	try {
+		console.log("there you go");
 		const user = await User.findById(req.user.id);
 
 		if (!user) throw Error("User doesn't exist");
