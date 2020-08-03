@@ -7,6 +7,7 @@ import {
 	LOGOUT_SUCCESS,
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
+	ADD_CART_TO_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -23,6 +24,7 @@ export default function (state = initialState, action) {
 				...state,
 				isLoading: true,
 			};
+
 		case USER_LOADED:
 			return {
 				...state,
@@ -52,6 +54,11 @@ export default function (state = initialState, action) {
 				isAuthenticated: false,
 				isLoading: false,
 				user: null,
+			};
+		case ADD_CART_TO_USER:
+			return {
+				...state,
+				user: action.payload,
 			};
 
 		default:

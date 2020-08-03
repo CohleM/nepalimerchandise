@@ -7,6 +7,8 @@ import {
 	LOGOUT_SUCCESS,
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
+	ADD_CART_TO_USER,
+	ADD_CART_ERROR,
 } from "./types";
 import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
@@ -44,9 +46,9 @@ export const loadUser = () => (dispatch, getState) => {
 		.catch((err) => {
 			console.log("getinfo error", err);
 			dispatch(returnErrors(err.response.data, err.response.status));
-			// dispatch({
-			// 	type: AUTH_ERROR,
-			// });
+			dispatch({
+				type: AUTH_ERROR,
+			});
 		});
 };
 
@@ -65,7 +67,7 @@ export const tokenConfig = (getState) => {
 		config.headers["x-auth-token"] = token;
 	}
 
-	console.log(config);
+	//console.log(config);
 	return config;
 };
 
@@ -146,4 +148,28 @@ export const logout = () => (dispatch) => {
 	dispatch({
 		type: LOGOUT_SUCCESS,
 	});
+};
+
+export const addToCart = (productId) => (dispatch, getState) => {
+	axios
+		.get(
+			`http://localhost:5000/users/addToCart?id=${productId}`,
+			tokenConfig(getState)
+		)
+		.then((res) => {
+			//console.log(res.data);
+			dispatch({
+				type: ADD_CART_TO_USER,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					"ADD_TO_CART_ERROR"
+				)
+			);
+		});
 };

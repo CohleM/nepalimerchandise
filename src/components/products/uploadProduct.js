@@ -37,6 +37,7 @@ function UploadProduct(props) {
 		// console.log(newImages)
 	};
 	const onSubmit = (event) => {
+		event.preventDefault();
 		const variables = {
 			writer: "InsertObjectID",
 			title: TitleValue,
@@ -48,7 +49,6 @@ function UploadProduct(props) {
 		axios
 			.post("http://localhost:5000/product/uploadProduct", variables)
 			.then((response) => {
-				event.preventDefault();
 				if (response.data.success) {
 					console.log("done");
 					alert("Product uploaded successfully");
@@ -57,6 +57,9 @@ function UploadProduct(props) {
 					console.log("not done");
 					alert("Failed to Upload ");
 				}
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 
 		//JOI validations remaining
