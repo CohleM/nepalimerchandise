@@ -37,7 +37,6 @@ router.post("/uploadImage", (req, res) => {
 		return res.json({
 			success: true,
 			image: res.req.file.filename,
-			fileName: res.req.file.filename,
 		});
 	});
 });
@@ -65,6 +64,8 @@ router.post("/uploadProduct", (req, res) => {
 // 		return res.status(200).json({ success: true });
 // 	});
 // });
+
+//Gaurab Dhungel
 
 router.route("/getProducts").post((req, res) => {
 	let order = req.body.order ? req.body.order : "desc";
@@ -127,11 +128,18 @@ router.route("/getProducts").post((req, res) => {
 //product/product_by_id?id=${productId}&type=single
 router.route("/product_by_id").get((req, res) => {
 	const type = req.query.type;
-	const productIds = req.query.id;
+	let productIds = req.query.id;
 
 	//console.log(productIds);
 
 	if (type === "array") {
+		//console.log(req.query.id);
+
+		let ids = req.query.id.split(",");
+		productIds = [];
+		productIds = ids.map((item) => {
+			return item;
+		});
 	}
 
 	Product.find({ _id: { $in: productIds } }).exec((err, product) => {

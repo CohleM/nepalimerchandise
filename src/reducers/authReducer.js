@@ -8,13 +8,29 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	ADD_CART_TO_USER,
+	CART_LOADING,
+	CART_LOADED,
 } from "../actions/types";
 
 const initialState = {
 	token: localStorage.getItem("token"),
 	isAuthenticated: null,
 	isLoading: false,
-	user: null,
+	user: {
+		cart: [],
+		history: [],
+		_id: null,
+		name: null,
+		email: null,
+		password: null,
+	},
+	cartDetail: {
+		title: "",
+		description: "",
+		price: 0,
+		image: [],
+		quantity: 0,
+	},
 };
 
 export default function (state = initialState, action) {
@@ -59,6 +75,17 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				user: action.payload,
+			};
+
+		case CART_LOADING:
+			return {
+				...state,
+				user: { ...state.user, cart: action.payload.cart },
+			};
+		case CART_LOADED:
+			return {
+				...state,
+				cartDetail: action.payload,
 			};
 
 		default:

@@ -9,6 +9,8 @@ import {
 	REGISTER_FAIL,
 	ADD_CART_TO_USER,
 	ADD_CART_ERROR,
+	CART_LOADING,
+	CART_LOADED,
 } from "./types";
 import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
@@ -172,4 +174,61 @@ export const addToCart = (productId) => (dispatch, getState) => {
 				)
 			);
 		});
+};
+
+export const loadCart = () => (dispatch, getState) => {
+	axios
+		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+		.then((res) => {
+			dispatch({
+				type: CART_LOADING,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			console.log("getinfo error", err);
+			dispatch(
+				returnErrors(err.response.data, err.response.status, "CART_NOT_LOADED")
+			);
+		});
+};
+
+export const getCartItems = (productIds, userCart) => (dispatch, getState) => {
+	const req = axios
+		.get(
+			`http://localhost:5000/product/product_by_id?id=${productIds}&type=array`,
+			tokenConfig(getState)
+		)
+		.then((response) => {
+			userCart.forEach((cartItem) => {
+				response.data.forEach((productDetail, i) => {
+					if (productDetail._id == cartItem.id) {
+						response.data[i].quantity = cartItem.quantity;
+					}
+				});
+			});
+
+			return response.data;
+			//	console.log("cartDetailDAta", req);
+		});
+
+	//	console.log("cartDetailDAta", req);
+
+	req.then((value) => {
+		dispatch({
+			type: CART_LOADED,
+			payload: value,
+		});
+	});
+
+	// //	req.then((dd) => console.log("yolo", dd));
+	// let productValue = [];
+	// req.then((dd) => {
+	// 	productValue = dd;
+	// });
+	//console.log(productValue);
+	// dispatch({
+	// 	type: CART_LOADED,
+	// 	payload: req,
+	// });
 };
