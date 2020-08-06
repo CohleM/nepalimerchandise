@@ -24,14 +24,35 @@ const initialState = {
 		email: null,
 		password: null,
 	},
-	cartDetail: {
-		title: "",
-		description: "",
-		price: 0,
-		image: [],
-		quantity: 0,
-	},
+	// cartDetail: {
+	// 	title: "",
+	// 	description: "",
+	// 	price: 0,
+	// 	image: [],
+	// 	quantity: 0,
+	// },
 };
+
+// const initialState = {
+// 	token: localStorage.getItem("token"),
+// 	isAuthenticated: null,
+// 	isLoading: false,
+// 	user: {
+// 		cart: [],
+// 		history: [],
+// 		_id: null,
+// 		name: null,
+// 		email: null,
+// 		password: null,
+// 	},
+// 	cartDetail: {
+// 		title: "",
+// 		description: "",
+// 		price: 0,
+// 		image: [],
+// 		quantity: 0,
+// 	},
+// };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
