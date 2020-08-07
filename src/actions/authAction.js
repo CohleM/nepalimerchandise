@@ -11,6 +11,7 @@ import {
 	ADD_CART_ERROR,
 	CART_LOADING,
 	CART_LOADED,
+	REMOVE_FROM_CART,
 } from "./types";
 import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
@@ -220,15 +221,34 @@ export const getCartItems = (productIds, userCart) => (dispatch, getState) => {
 			payload: value,
 		});
 	});
+};
 
-	// //	req.then((dd) => console.log("yolo", dd));
-	// let productValue = [];
-	// req.then((dd) => {
-	// 	productValue = dd;
-	// });
-	//console.log(productValue);
-	// dispatch({
-	// 	type: CART_LOADED,
-	// 	payload: req,
-	// });
+export const removeFromCart = (productId) => (dispatch, getState) => {
+	console.log("this is remove from cart");
+	const req = axios
+		.get(
+			`http://localhost:5000/users/removeFromCart?id=${productId}`,
+			tokenConfig(getState)
+		)
+		.then((res) => {
+			res.data.cart.forEach((item) => {
+				res.data.cartDetail.forEach((k, i) => {
+					res.data.cartDetail[i].quantity = item.quantity;
+				});
+			});
+
+			return res;
+		})
+		.catch((err) => {
+			returnErrors(err.response.data, err.response.status, "REMOVE_CART_ERROR");
+		});
+
+	//	console.log("cartDetailDAta", req);
+
+	req.then((value) => {
+		dispatch({
+			type: REMOVE_FROM_CART,
+			payload: value,
+		});
+	});
 };

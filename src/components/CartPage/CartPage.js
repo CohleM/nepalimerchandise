@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadCart, getCartItems } from "../../actions/authAction";
+import {
+	loadCart,
+	getCartItems,
+	removeFromCart,
+} from "../../actions/authAction";
 import CartTable from "./SubFiles/CartTable";
 import { Result, Empty } from "antd";
 
@@ -10,6 +14,7 @@ function CartPage() {
 	const productIds = [];
 	const userCart = useSelector((state) => state.auth.user.cart);
 	const cartDetail = useSelector((state) => state.auth.cartDetail);
+	//let flag = false
 	console.log("outside");
 
 	useEffect(() => {
@@ -38,10 +43,11 @@ function CartPage() {
 		}
 	}, [cartDetail]);
 
-	const removeFromCart = (productID) => {
-		console.log(productID);
-		//do some dispatch
-	};
+	// const removeFromCart = (productID) => {
+	// 	console.log(productID);
+	// 	//	dispatch(removeFromCart(productID));
+	// 	//do some dispatch
+	// };
 	// console.log(productIds);
 	// console.log(userCart);
 	return (

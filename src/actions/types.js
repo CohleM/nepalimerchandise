@@ -12,3 +12,4 @@ export const ADD_CART_TO_USER = "ADD_CART_TO_USER";
 export const ADD_CART_ERROR = "ADD_CART_ERROR";
 export const CART_LOADING = "CART_LOADING";
 export const CART_LOADED = "CART_LOADED";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";

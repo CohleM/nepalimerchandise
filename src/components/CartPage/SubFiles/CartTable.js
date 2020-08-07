@@ -1,7 +1,22 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 function CartTable(props) {
 	const cartDetail = useSelector((state) => state.auth.cartDetail);
+	let removeProductId = "";
+	const dispatch = useDispatch();
+	const removeFromCart = (productID) => {
+		console.log(productID);
+		removeProductId = productID;
+		//dispatch(removeFromCart(productID));
+		//do some dispatch
+	};
+	useEffect(() => {
+		if (removeProductId) {
+			console.log("this iszzzz useeffect");
+			dispatch(removeFromCart(removeProductId));
+			removeProductId = "";
+		}
+	}, [removeProductId]);
 
 	//console.log(cartDetail, typeof cartDetail);
 
@@ -35,7 +50,7 @@ function CartTable(props) {
 				<td style={{ border: "1px solid black" }}>{product.quantity}</td>
 				<td style={{ border: "1px solid black" }}>{product.price}</td>
 				<td style={{ border: "1px solid black" }}>
-					<button onClick={() => props.removeProduct(product._id)}>
+					<button onClick={() => removeFromCart(product._id)}>
 						{" "}
 						Remove from cart
 					</button>
