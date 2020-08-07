@@ -1,11 +1,9 @@
 import React from "react";
-import { Table } from "antd";
 
-function CartTable(props) {
-	const renderTableContent = () => {};
+function CartTable() {
 	return (
 		<div>
-			<table style={{ marginLeft: "auto", marginRight: "auto" }}>
+			<table style={{ border: "1px solid black" }}>
 				<thead>
 					<tr>
 						<th>Product Image</th>
@@ -14,7 +12,6 @@ function CartTable(props) {
 						<th>Remove from Cart</th>
 					</tr>
 				</thead>
-				<tbody>{renderTableContent()}</tbody>
 			</table>
 		</div>
 	);
