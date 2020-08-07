@@ -24,13 +24,9 @@ const initialState = {
 		email: null,
 		password: null,
 	},
-	cartDetail: {
-		title: "",
-		description: "",
-		price: 0,
-		image: [],
-		quantity: 0,
-	},
+	cartDetail: [
+		{ title: "", description: "", price: 0, image: [], quantity: 0 },
+	],
 };
 
 export default function (state = initialState, action) {
