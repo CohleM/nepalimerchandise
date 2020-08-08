@@ -27,22 +27,23 @@ function CartPage() {
 		});
 		// usercart is an array of whole product with quantity and productids is only the ids
 		//fires up cartDetail state
-		dispatch(getCartItems(productIds, userCart));
+		if (productIds && productIds.length > 0)
+			dispatch(getCartItems(productIds, userCart));
 	}, [userCart]);
 
 	useEffect(() => {
-		if (cartDetail && cartDetail.length > 0) {
+		if (cartDetail && cartDetail.length >= 0) {
 			let total = 0;
 			cartDetail.forEach((product) => {
 				total += product.price * product.quantity;
 			});
-
+			console.log("this is total", total);
 			setTotal(total);
 		}
 	}, [cartDetail]);
 
 	const removeCart = (productId) => {
-		console.log(productId);
+		//console.log(productId);
 		dispatch(removeFromCart(productId));
 	};
 
