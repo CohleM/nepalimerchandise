@@ -246,6 +246,13 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 	//	console.log("cartDetailDAta", req);
 
 	req.then((value) => {
+		console.log(
+			"this is cartdetail : ",
+			value.data.cartDetail,
+			"this is cart : ",
+			value.data.cart
+		);
+
 		dispatch({
 			type: REMOVE_FROM_CART,
 			payload: value,

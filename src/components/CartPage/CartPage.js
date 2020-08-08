@@ -17,19 +17,17 @@ function CartPage() {
 	//let flag = false
 	console.log("outside");
 
+	// usercart is an array of whole product with quantity and productids is only the ids
+	//fires up cartDetail state
+	//dispatch(getCartItems(productIds, userCart));
+
 	useEffect(() => {
-		//console.log("inside", typeof userCart);
-		//dispatch(loadCart());
-
-		//let Juser = JSON.stringify(user);
-		//console.log(userCart[0]);
-
 		userCart.forEach((item) => {
 			productIds.push(item.id);
 		});
 		// usercart is an array of whole product with quantity and productids is only the ids
+		//fires up cartDetail state
 		dispatch(getCartItems(productIds, userCart));
-		//userCart.forEach();
 	}, [userCart]);
 
 	useEffect(() => {
@@ -43,18 +41,16 @@ function CartPage() {
 		}
 	}, [cartDetail]);
 
-	// const removeFromCart = (productID) => {
-	// 	console.log(productID);
-	// 	//	dispatch(removeFromCart(productID));
-	// 	//do some dispatch
-	// };
-	// console.log(productIds);
-	// console.log(userCart);
+	const removeCart = (productId) => {
+		console.log(productId);
+		dispatch(removeFromCart(productId));
+	};
+
 	return (
 		<div style={{ width: "85%" }}>
 			<h2>Cart</h2>
 			<div style={{ justifyContent: "center" }}>
-				<CartTable removeProduct={removeFromCart} />{" "}
+				<CartTable removeProduct={removeCart} />{" "}
 				<div style={{ marginTop: "3rem" }}>
 					<h3> Total amount :${Total} </h3>{" "}
 				</div>
@@ -70,6 +66,7 @@ function CartPage() {
 					}}
 				>
 					<Empty description={false}> </Empty>
+					{/* //{console.log("trying")} */}
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const multer = require("multer");
 const { Product } = require("../models/product");
-const product = require("../models/product");
+//const product = require("../models/product");
 
 const auth = require("../middlewares/auth");
 var storage = multer.diskStorage({
@@ -145,7 +145,7 @@ router.route("/product_by_id").get((req, res) => {
 	Product.find({ _id: { $in: productIds } }).exec((err, product) => {
 		if (err) res.status(400).send(err);
 		else res.status(200).send(product);
-		console.log(product);
+		//console.log(product);
 	});
 });
 

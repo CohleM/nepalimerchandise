@@ -89,10 +89,9 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				user: {
-					...state.user,
-					cart: action.payload.cart,
+					cart: action.payload.data.cart,
 				},
-				cartDetail: action.payload.cartDetail,
+				cartDetail: action.payload.data.cartDetail,
 			};
 		default:
 			return state;

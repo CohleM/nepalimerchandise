@@ -2,21 +2,23 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 function CartTable(props) {
 	const cartDetail = useSelector((state) => state.auth.cartDetail);
-	let removeProductId = "";
+	//	let removeProductId = "";
 	const dispatch = useDispatch();
-	const removeFromCart = (productID) => {
-		console.log(productID);
-		removeProductId = productID;
-		//dispatch(removeFromCart(productID));
-		//do some dispatch
-	};
-	useEffect(() => {
-		if (removeProductId) {
-			console.log("this iszzzz useeffect");
-			dispatch(removeFromCart(removeProductId));
-			removeProductId = "";
-		}
-	}, [removeProductId]);
+
+	// useEffect(() => {
+	// 	if (removeProductId) {
+	// 		console.log("this iszzzz useeffect");
+	// 		dispatch(removeFromCart(removeProductId));
+	// 		removeProductId = "";
+	// 	}
+	// }, [removeProductId]);
+
+	// const removeFromCart = (productID) => {
+	// 	console.log(productID);
+	// 	removeProductId = productID;
+	// 	//dispatch(removeFromCart(productID));
+	// 	//do some dispatch
+	// };
 
 	//console.log(cartDetail, typeof cartDetail);
 
@@ -24,7 +26,7 @@ function CartTable(props) {
 	// 	Number(key),
 	// 	cartDetail[key],
 	// ]);
-	console.log(cartDetail, cartDetail.length);
+	//console.log(cartDetail, cartDetail.length);
 	//console.log("result", res);
 
 	let check = false;
@@ -50,7 +52,7 @@ function CartTable(props) {
 				<td style={{ border: "1px solid black" }}>{product.quantity}</td>
 				<td style={{ border: "1px solid black" }}>{product.price}</td>
 				<td style={{ border: "1px solid black" }}>
-					<button onClick={() => removeFromCart(product._id)}>
+					<button onClick={() => props.removeProduct(product._id)}>
 						{" "}
 						Remove from cart
 					</button>

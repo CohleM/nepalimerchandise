@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/user");
-const Product = require("../models/product");
+const { Product } = require("../models/product");
 const bcrypt = require("bcryptjs");
 const {
 	registerValidation,
@@ -171,6 +171,7 @@ router.get("/addToCart", auth, async (req, res) => {
 //http://localhost:5000/users/removeFromCart?id=${productId}
 
 router.get("/removeFromCart", auth, async (req, res) => {
+	console.log("this is DB for rm");
 	User.findOneAndUpdate(
 		{ _id: req.user.id },
 		{
