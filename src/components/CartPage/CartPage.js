@@ -51,6 +51,7 @@ function CartPage() {
 
 	const transactionSuccess = (payment) => {
 		dispatch(paymentSuccess(payment, cartDetail));
+		setShowSuccess(true);
 	};
 	return (
 		<div style={{ width: "100%" }}>
@@ -104,6 +105,9 @@ function CartPage() {
 						<div style={{ marginTop: "3rem" }}>
 							<h3> Total amount :${Total} </h3>
 						</div>
+						<Paypal transOnSuccess={transactionSuccess} amount={Total}>
+							{" "}
+						</Paypal>
 					</div>
 				) : ShowSuccess ? (
 					<Result status="success" title="Successfully Purchased Item"></Result>
@@ -120,9 +124,6 @@ function CartPage() {
 						<Empty description={false}>Cart is Empty </Empty>
 					</div>
 				)}
-				<Paypal transOnSuccess={transactionSuccess} amount={Total}>
-					{" "}
-				</Paypal>
 			</div>
 		</div>
 	);

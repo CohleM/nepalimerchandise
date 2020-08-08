@@ -98,10 +98,7 @@ export default function (state = initialState, action) {
 		case PAYMENT_SUCCESS:
 			return {
 				...state,
-				user: {
-					...state.user,
-					cart: action.payload.cart,
-				},
+				user: action.payload.user,
 				cartDetail: action.payload.cartDetail,
 			};
 
