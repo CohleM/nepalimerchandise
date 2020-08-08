@@ -13,3 +13,4 @@ export const ADD_CART_ERROR = "ADD_CART_ERROR";
 export const CART_LOADING = "CART_LOADING";
 export const CART_LOADED = "CART_LOADED";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const PAYMENT_SUCCESS = "PAYMENT_SUCCESS";

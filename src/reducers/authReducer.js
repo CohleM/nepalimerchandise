@@ -11,6 +11,7 @@ import {
 	CART_LOADING,
 	CART_LOADED,
 	REMOVE_FROM_CART,
+	PAYMENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -89,10 +90,21 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				user: {
+					...state.user,
 					cart: action.payload.data.cart,
 				},
 				cartDetail: action.payload.data.cartDetail,
 			};
+		case PAYMENT_SUCCESS:
+			return {
+				...state,
+				user: {
+					...state.user,
+					cart: action.payload.cart,
+				},
+				cartDetail: action.payload.cartDetail,
+			};
+
 		default:
 			return state;
 	}

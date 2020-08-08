@@ -4,16 +4,18 @@ import {
 	loadCart,
 	getCartItems,
 	removeFromCart,
+	paymentSuccess,
 } from "../../actions/authAction";
 import CartTable from "./SubFiles/CartTable";
 import { Result, Empty } from "antd";
-
+import Paypal from "../utilities/Paypal";
 function CartPage() {
 	const dispatch = useDispatch();
 	const [Total, setTotal] = useState(0);
 	const productIds = [];
 	const userCart = useSelector((state) => state.auth.user.cart);
 	const cartDetail = useSelector((state) => state.auth.cartDetail);
+	const [ShowSuccess, setShowSuccess] = useState(false);
 	//let flag = false
 	console.log("outside");
 
@@ -47,18 +49,22 @@ function CartPage() {
 		dispatch(removeFromCart(productId));
 	};
 
+	const transactionSuccess = (payment) => {
+		dispatch(paymentSuccess(payment, cartDetail));
+	};
 	return (
-		<div style={{ width: "85%" }}>
-			<h2>Cart</h2>
+		<div style={{ width: "100%" }}>
 			<div style={{ justifyContent: "center" }}>
+				{/* 
+			{Total ? 
 				<CartTable removeProduct={removeCart} />{" "}
 				<div style={{ marginTop: "3rem" }}>
-					<h3> Total amount :${Total} </h3>{" "}
+					<h3> Total amount :${Total} </h3>
 				</div>
-				<Result status="success" title="Successfully Purchased Item">
-					{" "}
-				</Result>
-				<div
+					: ShowSuccess ? 	<Result status="success" title="Successfully Purchased Item">
+
+				</Result> : 
+					<div
 					style={{
 						justifyContent: "center",
 						width: "100%",
@@ -67,8 +73,56 @@ function CartPage() {
 					}}
 				>
 					<Empty description={false}> </Empty>
-					{/* //{console.log("trying")} */}
 				</div>
+
+		}	
+				 */}
+
+				{/* {
+					Total ? 	<CartTable removeProduct={removeCart} />
+					<div style={{ marginTop: "3rem" }}>
+						<h3> Total amount :${Total} </h3>
+					</div> : ShowSuccess ? 	<Result status="success" title="Successfully Purchased Item">
+
+</Result> :  	<div
+					style={{
+						justifyContent: "center",
+						width: "100%",
+						display: "flex",
+						flexDirection: "column",
+					}}
+				>
+					<Empty description={false}> </Empty>
+				</div>
+				}
+			 */}
+
+				{Total ? (
+					<div>
+						<h4>Cart</h4>
+						<CartTable removeProduct={removeCart} />
+						<div style={{ marginTop: "3rem" }}>
+							<h3> Total amount :${Total} </h3>
+						</div>
+					</div>
+				) : ShowSuccess ? (
+					<Result status="success" title="Successfully Purchased Item"></Result>
+				) : (
+					<div
+						style={{
+							justifyContent: "center",
+							width: "100%",
+							display: "flex",
+							flexDirection: "column",
+							marginTop: "10rem",
+						}}
+					>
+						<Empty description={false}>Cart is Empty </Empty>
+					</div>
+				)}
+				<Paypal transOnSuccess={transactionSuccess} amount={Total}>
+					{" "}
+				</Paypal>
 			</div>
 		</div>
 	);

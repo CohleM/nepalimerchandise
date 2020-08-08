@@ -12,6 +12,7 @@ import {
 	CART_LOADING,
 	CART_LOADED,
 	REMOVE_FROM_CART,
+	PAYMENT_SUCCESS,
 } from "./types";
 import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
@@ -258,4 +259,33 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 			payload: value,
 		});
 	});
+};
+
+export const paymentSuccess = (payment, cartDetail) => (dispatch, getState) => {
+	console.log("paymentSucceeFrontenddd");
+	axios
+		.post(
+			"http://localhost:5000/users/paymentSuccess",
+			{
+				payment,
+				cartDetail,
+			},
+			tokenConfig(getState)
+		)
+		.then((res) => {
+			dispatch({
+				type: PAYMENT_SUCCESS,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			console.log("getinfo error", err);
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					"PAYMENT_UNSUCCESSFUL"
+				)
+			);
+		});
 };

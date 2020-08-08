@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const { Product } = require("../models/product");
+const { Payment } = require("../models/payment");
 const bcrypt = require("bcryptjs");
 const {
 	registerValidation,
@@ -8,7 +9,7 @@ const {
 } = require("../validations/userValidation");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
-
+const asnc = require("async");
 router.route("/").get(auth, (req, res) => {
 	res.send("whaup biatch");
 	console.log("whats up motherfucker");
@@ -197,6 +198,88 @@ router.get("/removeFromCart", auth, async (req, res) => {
 		})
 		.catch((err) => {
 			console.log(err);
+		});
+});
+
+router.post("/paymentSuccess", auth, async (req, res) => {
+	console.log("paymentSucceeBackenddd");
+	let history = [];
+	let transactionDetails = {};
+
+	//making history of user
+	req.body.cartDetail.forEach((item) => {
+		history.push({
+			id: item._id,
+			name: item.title,
+			price: item.price,
+			quantity: item.quantity,
+			dataOfPurchase: Date.now(),
+			paymentId: req.body.payment.paymentID,
+		});
+	});
+
+	//Now making payment details as per the payment model
+
+	transactionDetails.user = {
+		id: req.user.id,
+	};
+	transactionDetails.data = req.body.payment;
+	transactionDetails.product = history;
+
+	//Now save it in the user database, push history and empty the cart
+
+	await User.findOneAndUpdate(
+		{
+			_id: req.user.id,
+		},
+		{
+			$push: { history: history },
+			$set: { cart: [] },
+		},
+		{ new: true }
+	)
+		.then((user) => {
+			const paymentDetails = new Payment(transactionDetails);
+			paymentDetails
+				.save()
+				.then((doc) => {
+					//now make  the sold varible of Product model
+
+					let products = [];
+					doc.product.forEach((item) => {
+						products.push({ id: item.id, quantity: item.quantity });
+
+						asnc.eachSeries(
+							products,
+							(it, callback) => {
+								Product.updateOne(
+									{
+										_id: it.id,
+									},
+									{
+										$inc: { sold: it.quantity },
+									},
+									{ new: false },
+									callback
+								);
+							},
+							(err) => {
+								if (err) res.status(400).json({ success: false, err });
+								res.status(200).json({
+									success: true,
+									cart: user.cart,
+									cartDetail: [],
+								});
+							}
+						);
+					});
+				})
+				.catch((err) => {
+					res.status(400).json({ success: false, err });
+				});
+		})
+		.catch((err) => {
+			res.status(400).json({ success: false, err });
 		});
 });
 module.exports = router;
