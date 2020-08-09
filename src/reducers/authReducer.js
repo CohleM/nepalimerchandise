@@ -67,7 +67,7 @@ export default function (state = initialState, action) {
 				token: null,
 				isAuthenticated: false,
 				isLoading: false,
-				user: null,
+				user: { ...state.user, cart: [] },
 				cartDetail: null,
 			};
 		case ADD_CART_TO_USER:

@@ -245,41 +245,47 @@ router.post("/paymentSuccess", auth, async (req, res) => {
 				.then((doc) => {
 					//now make  the sold varible of Product model
 
-					let products = [];
-					doc.product.forEach((item) => {
-						products.push({ id: item.id, quantity: item.quantity });
+					// let products = [];
+					// doc.product.forEach((item) => {
+					// 	products.push({ id: item.id, quantity: item.quantity });
 
-						asnc.eachSeries(
-							products,
-							(it, callback) => {
-								Product.updateOne(
-									{
-										_id: it.id,
-									},
-									{
-										$inc: { sold: it.quantity },
-									},
-									{ new: false },
-									callback
-								);
-							},
-							(err) => {
-								if (err) res.status(400).json({ success: false, err });
-								res.status(200).json({
-									success: true,
-									user: user,
-									cartDetail: [],
-								});
-							}
-						);
+					// 	asnc.eachSeries(
+					// 		products,
+					// 		(it, callback) => {
+					// 			Product.updateOne(
+					// 				{
+					// 					_id: it.id,
+					// 				},
+					// 				{
+					// 					$inc: { sold: it.quantity },
+					// 				},
+					// 				{ new: false },
+					// 				callback
+					// 			);
+					// 		},
+					// 		(err) => {
+					// 			if (err) return res.status(400).json({ success: false, err });
+					// 			return res.status(200).json({
+					// 				success: true,
+					// 				user: user,
+					// 				cartDetail: [],
+					// 			});
+					// 		}
+					// 	);
+					// });
+
+					return res.status(200).json({
+						success: true,
+						user: user,
+						cartDetail: [],
 					});
 				})
 				.catch((err) => {
-					res.status(400).json({ success: false, err });
+					return res.status(400).json({ success: false, err });
 				});
 		})
 		.catch((err) => {
-			res.status(400).json({ success: false, err });
+			return res.status(400).json({ success: false, err });
 		});
 });
 module.exports = router;

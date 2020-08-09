@@ -5,6 +5,9 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
 import { useSelector } from "react-redux";
 export default function Navbar() {
+	const isAuth = useSelector((state) => state.auth.isAuthenticated);
+	//let prodCount = 0;
+	//if (isAuth) prodCount = useSelector((state) => state.auth.user.cart);
 	const prodCount = useSelector((state) => state.auth.user.cart);
 
 	//console.log(prodCount, prodCount.length);
