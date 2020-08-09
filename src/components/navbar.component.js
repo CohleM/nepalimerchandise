@@ -65,6 +65,12 @@ export default function Navbar() {
 							</Badge>
 						</Link>
 					</li>
+
+					<li className="navbar-item">
+						<Link exact to="/users/history" className="nav-link">
+							History
+						</Link>
+					</li>
 				</ul>
 			</div>
 		</nav>

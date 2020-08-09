@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import Logout from "./components/users/Logout";
 import Login from "./components/users/Login";
 import CartPage from "./components/CartPage/CartPage";
+import History from "./components/users/History";
 function App() {
 	useEffect(() => {
 		console.log(store);
@@ -42,6 +43,8 @@ function App() {
 					<Route exact path="/users/login" component={Login} />
 
 					<Route exact path="/users/cartPage" component={CartPage} />
+
+					<Route exact path="/users/history" component={History} />
 				</Switch>
 
 				{/* </div> */}
