@@ -19,6 +19,8 @@ import Logout from "./components/users/Logout";
 import Login from "./components/users/Login";
 import CartPage from "./components/CartPage/CartPage";
 import History from "./components/users/History";
+import HomePage from "./components/HomePage/HomePage";
+import Footer from "./components/utilities/Footer";
 function App() {
 	useEffect(() => {
 		console.log(store);
@@ -29,10 +31,9 @@ function App() {
 			<Router>
 				{/* <div className= "container"> */}
 				<Navbar />
-
+				<Route exact path="/" exact component={HomePage} />
 				<br />
 				<Switch>
-					<Route exact path="/" exact component={LandingPage} />
 					<Route exact path="/edit/:id" component={EditExercise} />
 					<Route exact path="/create" component={CreateExercise} />
 					<Route exact path="/product/upload" component={UploadProduct} />
@@ -47,6 +48,7 @@ function App() {
 					<Route exact path="/users/history" component={History} />
 				</Switch>
 
+				<Footer />
 				{/* </div> */}
 			</Router>
 		</Provider>

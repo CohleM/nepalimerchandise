@@ -55,11 +55,8 @@ import Carousel from "react-material-ui-carousel";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import one from "../images/one1.png";
+import two from "./gg.jpg";
 
-import two from "../images/gg.jpg";
-
-import three from "../images/gg.jpg";
 const useStyles = makeStyles((theme) => ({
 	img2: {
 		width: "100%",

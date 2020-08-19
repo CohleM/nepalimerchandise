@@ -1,40 +1,37 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-//import {  Badge } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-//import { Badge } from "antd";
+import { withRouter } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Badge from "@material-ui/core/Badge";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import Grid from "@material-ui/core/Grid";
-//import Toolbar from "@material-ui/core/Toolbar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-//import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-//import IconButton from "@material-ui/core/IconButton";
-//import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import PhotoGrid from "../components/PhotoGrid";
+
+import {
+	Typography,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Badge,
+	InputBase,
+	Grid,
+	CssBaseline,
+	Drawer,
+	List,
+	Divider,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+} from "@material-ui/core";
+
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -67,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 	appBarBg: {
 		backgroundColor: "#222F3E",
+		//222F3E
 		// height: 90,
 		// textAlign: "center",
 		[theme.breakpoints.up("sm")]: {
@@ -252,67 +250,7 @@ function Navbar(props) {
 	if (prodCount && prodCount.length >= 1) count = prodCount.length;
 
 	return (
-		// <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-		// 	<Link to="/" className="navbar-brand">
-		// 		NepaliMerchandise
-		// 	</Link>
-		// 	<div className="collpase navbar-collapse">
-		// 		<ul className="navbar-nav mr-auto">
-		// 			<li className="navbar-item">
-		// 				<Link to="/" className="nav-link">
-		// 					Home
-		// 				</Link>
-		// 			</li>
-		// 			<li className="navbar-item">
-		// 				<Link to="/register" className="nav-link">
-		// 					register
-		// 				</Link>
-		// 			</li>
-		// 			<li className="navbar-item">
-		// 				<Link to="/user" className="nav-link">
-		// 					Create User
-		// 				</Link>
-		// 			</li>
-		// 			<li className="navbar-item">
-		// 				<Link exact to="/product/upload" className="nav-link">
-		// 					uploadproduct
-		// 				</Link>
-		// 			</li>
-
-		// 			<li className="navbar-item">
-		// 				<Link exact to="/users/logout" className="nav-link">
-		// 					logout
-		// 				</Link>
-		// 			</li>
-
-		// 			<li className="navbar-item">
-		// 				<Link exact to="/users/login" className="nav-link">
-		// 					Login
-		// 				</Link>
-		// 			</li>
-
-		// 			<li className="navbar-item">
-		// 				<Link exact to="/users/cartPage" className="nav-link">
-		// 					{/* <Icon
-		// 							type="shopping-cart"
-		// 							style={{ fontSize: 30, marginBottom: 4 }}
-		// 						/> */}
-		// 					<Badge count={count} style={{}}>
-		// 						<ShoppingCartOutlined style={{ fontSize: "20px" }} />
-		// 					</Badge>
-		// 				</Link>
-		// 			</li>
-
-		// 			<li className="navbar-item">
-		// 				<Link exact to="/users/history" className="nav-link">
-		// 					History
-		// 				</Link>
-		// 			</li>
-		// 		</ul>
-		// 	</div>
-		// </nav>
-
-		<div>
+		<div style={{ marginBottom: "0px" }}>
 			<CssBaseline />
 			<AppBar
 				position="sticky"
@@ -404,8 +342,6 @@ function Navbar(props) {
 				</Toolbar>
 			</AppBar>
 			{/* Main Body goes here */}
-
-			<PhotoGrid />
 			<Drawer
 				className={classes.drawer}
 				variant="persistent"
@@ -416,7 +352,7 @@ function Navbar(props) {
 				}}
 			>
 				<div className={classes.drawerHeader}>
-					<IconButton onClick={handleDrawerClose}>
+					<IconButton onClick={handleDrawerClose} style={{ outline: "none" }}>
 						{theme.direction === "rtl" ? (
 							<ChevronLeftIcon />
 						) : (
