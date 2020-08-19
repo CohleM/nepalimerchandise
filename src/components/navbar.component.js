@@ -1,10 +1,247 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 //import {  Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge } from "antd";
+//import { Badge } from "antd";
 import { useSelector } from "react-redux";
-export default function Navbar() {
+
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Badge from "@material-ui/core/Badge";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
+import Grid from "@material-ui/core/Grid";
+//import Toolbar from "@material-ui/core/Toolbar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+//import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+//import IconButton from "@material-ui/core/IconButton";
+//import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import PhotoGrid from "../components/PhotoGrid";
+const drawerWidth = 240;
+const useStyles = makeStyles((theme) => ({
+	root: {
+		//display: "flex",
+	},
+	// This group of buttons will be aligned to the right
+	rightToolbar: {
+		// marginLeft: theme.spacing(3),
+		// width: "50%",
+		// marginBottom: 0,
+		// marginTop: 0,
+		marginRight: 0,
+		[theme.breakpoints.up("sm")]: {
+			//marginTop: "30px",
+			marginLeft: "auto",
+			//marginRight: 20,
+		},
+	},
+	typ: {
+		//textAlign: "left",
+		marginLeft: "20px",
+		marginRight: "auto",
+		[theme.breakpoints.up("sm")]: {
+			//marginTop: "30px",
+			marginLeft: "auto",
+			marginRight: "auto",
+			//marginRight: 20,
+		},
+	},
+
+	appBarBg: {
+		backgroundColor: "#222F3E",
+		// height: 90,
+		// textAlign: "center",
+		[theme.breakpoints.up("sm")]: {
+			//height: 90,
+			//marginRight: 20,
+		},
+
+		//height: "90px",
+	},
+	menuButton: {
+		// height: "90px",
+		marginRight: "auto",
+	},
+	search: {
+		position: "relative",
+		borderRadius: 20,
+		border: "1px solid white",
+		backgroundColor: "#222F3E",
+		"&:hover": {
+			backgroundColor: "#222F3E",
+		},
+		marginRight: theme.spacing(1),
+		marginLeft: theme.spacing(1),
+		width: "100%",
+		// marginTop: 150,
+		marginBottom: 20,
+		[theme.breakpoints.up("sm")]: {
+			// marginLeft: theme.spacing(3),
+			// width: "50%",
+			// marginBottom: 0,
+			// marginTop: 0,
+			display: "none",
+			//marginTop: "30px",
+		},
+	},
+	search1: {
+		// position: "relative",
+		// borderRadius: 20,
+		// border: "1px solid white",
+		// backgroundColor: "#222F3E",
+		// "&:hover": {
+		// 	backgroundColor: "#222F3E",
+		// },
+		// marginRight: theme.spacing(2),
+		// marginLeft: 30,
+		// width: "100%",
+		// // marginTop: 150,
+		// marginBottom: 20,
+		display: "none",
+		[theme.breakpoints.up("sm")]: {
+			marginLeft: theme.spacing(3),
+			width: "50%",
+			marginBottom: 0,
+			marginTop: 0,
+			display: "block",
+
+			position: "relative",
+			borderRadius: 20,
+			border: "1px solid white",
+			backgroundColor: "#222F3E",
+			"&:hover": {
+				backgroundColor: "#222F3E",
+			},
+			//marginTop: "30px",
+		},
+	},
+	tb: {
+		[theme.breakpoints.up("sm")]: {
+			// marginLeft: theme.spacing(3),
+			// width: "50%",
+			// marginBottom: 0,
+			// marginTop: 0,
+			display: "none",
+			//marginTop: "30px",
+		},
+	},
+	searchIcon: {
+		padding: theme.spacing(0, 2),
+		height: "100%",
+		position: "absolute",
+		pointerEvents: "none",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		//marginLeft: "90%",
+		// background: "white",
+		// borderTopLeftRadius: 20,
+		borderBottomLeftRadius: 20,
+		color: "white",
+		// border: "1px solid white",
+	},
+	inputRoot: {
+		color: "inherit",
+		// width: "100%",
+	},
+	inputInput: {
+		padding: theme.spacing(1, 1, 1, 0),
+		//vertical padding + font size from searchIcon
+		paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
+		transition: theme.transitions.create("width"),
+		width: "100%",
+		// [theme.breakpoints.up("md")]: {
+		// 	width: "100%",
+		// },
+	},
+
+	icons: {
+		// height: "90px",
+		marginRight: "auto",
+		[theme.breakpoints.up("md")]: {
+			//marginLeft: theme.spacing(3),
+			marginRight: 50,
+			height: "90px",
+		},
+	},
+	appBar: {
+		transition: theme.transitions.create(["margin", "width"], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+	},
+	appBarShift: {
+		// width: `calc(100% - ${drawerWidth}px)`,
+		// transition: theme.transitions.create(["margin", "width"], {
+		// 	easing: theme.transitions.easing.easeOut,
+		// 	duration: theme.transitions.duration.enteringScreen,
+		// }),
+		// marginRight: drawerWidth,
+	},
+
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+	},
+	drawerHeader: {
+		display: "flex",
+		alignItems: "center",
+		padding: theme.spacing(0, 1),
+		// necessary for content to be below app bar
+		...theme.mixins.toolbar,
+		justifyContent: "flex-start",
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3),
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginRight: -drawerWidth,
+	},
+	contentShift: {
+		// transition: theme.transitions.create("margin", {
+		// 	easing: theme.transitions.easing.easeOut,
+		// 	duration: theme.transitions.duration.enteringScreen,
+		// }),
+		//marginRight: 0,
+	},
+}));
+
+function Navbar(props) {
+	const classes = useStyles();
+	const theme = useTheme();
+	const [open, setOpen] = React.useState(false);
+
+	const handleDrawerOpen = () => {
+		setOpen(true);
+	};
+
+	const handleDrawerClose = () => {
+		setOpen(false);
+	};
 	const isAuth = useSelector((state) => state.auth.isAuthenticated);
 	//let prodCount = 0;
 	//if (isAuth) prodCount = useSelector((state) => state.auth.user.cart);
@@ -15,64 +252,203 @@ export default function Navbar() {
 	if (prodCount && prodCount.length >= 1) count = prodCount.length;
 
 	return (
-		<nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-			<Link to="/" className="navbar-brand">
-				NepaliMerchandise
-			</Link>
-			<div className="collpase navbar-collapse">
-				<ul className="navbar-nav mr-auto">
-					<li className="navbar-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li>
-					<li className="navbar-item">
-						<Link to="/register" className="nav-link">
-							register
-						</Link>
-					</li>
-					<li className="navbar-item">
-						<Link to="/user" className="nav-link">
-							Create User
-						</Link>
-					</li>
-					<li className="navbar-item">
-						<Link exact to="/product/upload" className="nav-link">
-							uploadproduct
-						</Link>
-					</li>
+		// <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+		// 	<Link to="/" className="navbar-brand">
+		// 		NepaliMerchandise
+		// 	</Link>
+		// 	<div className="collpase navbar-collapse">
+		// 		<ul className="navbar-nav mr-auto">
+		// 			<li className="navbar-item">
+		// 				<Link to="/" className="nav-link">
+		// 					Home
+		// 				</Link>
+		// 			</li>
+		// 			<li className="navbar-item">
+		// 				<Link to="/register" className="nav-link">
+		// 					register
+		// 				</Link>
+		// 			</li>
+		// 			<li className="navbar-item">
+		// 				<Link to="/user" className="nav-link">
+		// 					Create User
+		// 				</Link>
+		// 			</li>
+		// 			<li className="navbar-item">
+		// 				<Link exact to="/product/upload" className="nav-link">
+		// 					uploadproduct
+		// 				</Link>
+		// 			</li>
 
-					<li className="navbar-item">
-						<Link exact to="/users/logout" className="nav-link">
-							logout
-						</Link>
-					</li>
+		// 			<li className="navbar-item">
+		// 				<Link exact to="/users/logout" className="nav-link">
+		// 					logout
+		// 				</Link>
+		// 			</li>
 
-					<li className="navbar-item">
-						<Link exact to="/users/login" className="nav-link">
-							Login
-						</Link>
-					</li>
+		// 			<li className="navbar-item">
+		// 				<Link exact to="/users/login" className="nav-link">
+		// 					Login
+		// 				</Link>
+		// 			</li>
 
-					<li className="navbar-item">
-						<Link exact to="/users/cartPage" className="nav-link">
-							{/* <Icon
-									type="shopping-cart"
-									style={{ fontSize: 30, marginBottom: 4 }}
-								/> */}
-							<Badge count={count} style={{}}>
-								<ShoppingCartOutlined style={{ fontSize: "20px" }} />
-							</Badge>
-						</Link>
-					</li>
+		// 			<li className="navbar-item">
+		// 				<Link exact to="/users/cartPage" className="nav-link">
+		// 					{/* <Icon
+		// 							type="shopping-cart"
+		// 							style={{ fontSize: 30, marginBottom: 4 }}
+		// 						/> */}
+		// 					<Badge count={count} style={{}}>
+		// 						<ShoppingCartOutlined style={{ fontSize: "20px" }} />
+		// 					</Badge>
+		// 				</Link>
+		// 			</li>
 
-					<li className="navbar-item">
-						<Link exact to="/users/history" className="nav-link">
-							History
-						</Link>
-					</li>
-				</ul>
-			</div>
-		</nav>
+		// 			<li className="navbar-item">
+		// 				<Link exact to="/users/history" className="nav-link">
+		// 					History
+		// 				</Link>
+		// 			</li>
+		// 		</ul>
+		// 	</div>
+		// </nav>
+
+		<div>
+			<CssBaseline />
+			<AppBar
+				position="sticky"
+				className={clsx(classes.appBar, classes.appBarBg, {
+					[classes.appBarShift]: open,
+				})}
+				elevation={0}
+			>
+				<Toolbar>
+					{/* <IconButton
+					className={classes.menuButton}
+					aria-label="Menu"
+					color="inherit"
+				></IconButton> */}
+
+					<Typography variant="title" color="inherit" className={classes.typ}>
+						logo
+					</Typography>
+					<div className={classes.search1}>
+						<div className={classes.searchIcon}>
+							<SearchIcon style={{ fontSize: "20px" }} />
+						</div>
+						<InputBase
+							//placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							inputProps={{ "aria-label": "search" }}
+						/>
+					</div>
+
+					<section className={classes.rightToolbar}>
+						<Grid container spacing={0}>
+							<Grid item xs={4}>
+								<IconButton
+									color="inherit"
+									aria-label="Edit"
+									className={classes.icons}
+									style={{ outline: "none" }}
+									onClick={() => props.history.push("/users/cartPage")}
+								>
+									<Badge badgeContent={count} color="secondary">
+										<ShoppingCartIcon style={{ fontSize: "20px" }} />
+									</Badge>
+								</IconButton>
+							</Grid>
+							<Grid item xs={4}>
+								<IconButton
+									color="inherit"
+									aria-label="Save"
+									className={classes.icons}
+									style={{ outline: "none" }}
+									onClick={() => props.history.push("/register")}
+								>
+									<PermIdentityIcon style={{ fontSize: "20px" }} />
+								</IconButton>
+							</Grid>
+							<Grid item xs={4}>
+								<IconButton
+									color="inherit"
+									aria-label="More Options"
+									//className={classes.icons}
+
+									onClick={handleDrawerOpen}
+									className={clsx(open && classes.hide, classes.icons)}
+									style={{ outline: "none" }}
+								>
+									<MenuIcon style={{ fontSize: "20px" }} />
+								</IconButton>
+							</Grid>
+						</Grid>
+					</section>
+				</Toolbar>
+				<Toolbar className={classes.tb}>
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon style={{ fontSize: "20px" }} />
+						</div>
+						<InputBase
+							//placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							inputProps={{ "aria-label": "search" }}
+						/>
+					</div>
+				</Toolbar>
+			</AppBar>
+			{/* Main Body goes here */}
+
+			<PhotoGrid />
+			<Drawer
+				className={classes.drawer}
+				variant="persistent"
+				anchor="right"
+				open={open}
+				classes={{
+					paper: classes.drawerPaper,
+				}}
+			>
+				<div className={classes.drawerHeader}>
+					<IconButton onClick={handleDrawerClose}>
+						{theme.direction === "rtl" ? (
+							<ChevronLeftIcon />
+						) : (
+							<ChevronRightIcon />
+						)}
+					</IconButton>
+				</div>
+				<Divider />
+				<List>
+					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+				<Divider />
+				<List>
+					{["All mail", "Trash", "Spam"].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+			</Drawer>
+		</div>
 	);
 }
+
+export default withRouter(Navbar);
