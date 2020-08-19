@@ -48,7 +48,7 @@ function App() {
 					<Route exact path="/users/history" component={History} />
 				</Switch>
 
-				<Footer />
+				{/* <Footer /> */}
 				{/* </div> */}
 			</Router>
 		</Provider>

@@ -304,7 +304,7 @@ function Navbar(props) {
 									aria-label="Save"
 									className={classes.icons}
 									style={{ outline: "none" }}
-									onClick={() => props.history.push("/register")}
+									onClick={() => props.history.push("/users/login")}
 								>
 									<PermIdentityIcon style={{ fontSize: "20px" }} />
 								</IconButton>

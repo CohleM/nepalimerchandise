@@ -103,7 +103,7 @@ export default function CenteredGrid() {
 	];
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.root} style={{ backgroundColor: "white" }}>
 			<Container maxWidth="xl" className={classes.ct}>
 				<Typography gutterBottom className={classes.catt}>
 					CATEGORIES
