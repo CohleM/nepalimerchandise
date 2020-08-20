@@ -21,39 +21,41 @@ import CartPage from "./components/CartPage/CartPage";
 import History from "./components/users/History";
 import HomePage from "./components/HomePage/HomePage";
 import Footer from "./components/utilities/Footer";
+import ProductPage from "./components/ProductPage/ProductPage";
 function App() {
 	useEffect(() => {
 		console.log(store);
 		store.dispatch(loadUser());
 	}, []);
 	return (
-		<Provider store={store}>
-			<Router>
-				{/* <div className= "container"> */}
-				<Navbar />
-				<Route exact path="/" exact component={HomePage} />
-				<br />
-				<Switch>
-					<Route exact path="/edit/:id" component={EditExercise} />
-					<Route exact path="/create" component={CreateExercise} />
-					<Route exact path="/product/upload" component={UploadProduct} />
-					<Route exact path="/user" component={CreateUser} />
-					<Route exact path="/product/:productId" component={DetailedProduct} />
-					<Route exact path="/register" component={registerUser} />
-					<Route exact path="/users/logout" component={Logout} />
-					<Route exact path="/users/login" component={Login} />
+		<div style={{ width: "100%", backgroundColor: "white" }}>
+			<Provider store={store}>
+				<Router>
+					{/* <div className= "container"> */}
+					<Navbar />
+					<Route exact path="/" exact component={HomePage} />
+					<br />
+					<Switch>
+						<Route exact path="/edit/:id" component={EditExercise} />
+						<Route exact path="/create" component={CreateExercise} />
+						<Route exact path="/product/upload" component={UploadProduct} />
+						<Route exact path="/user" component={CreateUser} />
+						<Route exact path="/product/:productId" component={ProductPage} />
+						<Route exact path="/register" component={registerUser} />
+						<Route exact path="/users/logout" component={Logout} />
+						<Route exact path="/users/login" component={Login} />
 
-					<Route exact path="/users/cartPage" component={CartPage} />
+						<Route exact path="/users/cartPage" component={CartPage} />
 
-					<Route exact path="/users/history" component={History} />
-				</Switch>
+						<Route exact path="/users/history" component={History} />
+					</Switch>
 
-				{/* <Footer /> */}
-				{/* </div> */}
-			</Router>
-		</Provider>
+					<Footer />
+					{/* </div> */}
+				</Router>
+			</Provider>
+		</div>
 	);
-	//haha
 }
 
 export default App;
