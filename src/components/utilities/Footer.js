@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	bottomTxt: {
 		fontWeight: "500",
-		fontSize: "10px",
+		fontSize: "12px",
 		marginTop: 5,
 		marginBottom: 5,
 		textAlign: "left",

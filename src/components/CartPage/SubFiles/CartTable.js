@@ -1,33 +1,31 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import image from "../../../images/beauty.jpg";
+import two from "../../../images/Headphones.jpg";
+
+import { useTheme } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import Grid from "@material-ui/core/Grid";
+import { Paper, Divider, Button } from "@material-ui/core";
+import ClearIcon from "@material-ui/icons/Clear";
+import Container from "@material-ui/core/Container";
+import { useStyles } from "./Style";
+
 function CartTable(props) {
+	const classes = useStyles();
+	const theme = useTheme();
+
 	const cartDetail = useSelector((state) => state.auth.cartDetail);
 	//	let removeProductId = "";
 	const dispatch = useDispatch();
-
-	// useEffect(() => {
-	// 	if (removeProductId) {
-	// 		console.log("this iszzzz useeffect");
-	// 		dispatch(removeFromCart(removeProductId));
-	// 		removeProductId = "";
-	// 	}
-	// }, [removeProductId]);
-
-	// const removeFromCart = (productID) => {
-	// 	console.log(productID);
-	// 	removeProductId = productID;
-	// 	//dispatch(removeFromCart(productID));
-	// 	//do some dispatch
-	// };
-
-	//console.log(cartDetail, typeof cartDetail);
-
-	// let res = Object.keys(cartDetail).map((key) => [
-	// 	Number(key),
-	// 	cartDetail[key],
-	// ]);
-	//console.log(cartDetail, cartDetail.length);
-	//console.log("result", res);
 
 	let check = false;
 	if (cartDetail) check = true;
@@ -41,40 +39,117 @@ function CartTable(props) {
 		}
 	};
 
-	const renderProducts = () =>
-		cartDetail &&
-		cartDetail.map((product) => (
-			<tr key={product._id}>
-				<td style={{ border: "1px solid black" }}>
-					{/* <h5>hahah</h5> */}
-					<img style={{ width: "70px" }} src={retImage(product.images)} />
-				</td>
-				<td style={{ border: "1px solid black" }}>{product.quantity}</td>
-				<td style={{ border: "1px solid black" }}>{product.price}</td>
-				<td style={{ border: "1px solid black" }}>
-					<button onClick={() => props.removeProduct(product._id)}>
-						{" "}
-						Remove from cart
-					</button>
-				</td>
-			</tr>
-		));
+	// const renderProducts = () =>
+	// 	cartDetail &&
+	// 	cartDetail.map((product) => (
+	// 		<tr key={product._id}>
+	// 			<td style={{ border: "1px solid black" }}>
+	// 				{/* <h5>hahah</h5> */}
+	// 				<img style={{ width: "70px" }} src={retImage(product.images)} />
+	// 			</td>
+	// 			<td style={{ border: "1px solid black" }}>{product.quantity}</td>
+	// 			<td style={{ border: "1px solid black" }}>{product.price}</td>
+	// 			<td style={{ border: "1px solid black" }}>
+	// 				<button onClick={() => props.removeProduct(product._id)}>
+	// 					{" "}
+	// 					Remove from cart
+	// 				</button>
+	// 			</td>
+	// 		</tr>
+
+	// 		// <h1> </h1>
+	// 	));
 	// cartDetail.forEach((product) => {
 	// 	console.log(product.quantity);
 	// });
 	return (
 		<div>
-			<table style={{ marginLeft: "auto", marginRight: "auto" }}>
-				<thead style={{ border: "1px solid blackl" }}>
-					<tr>
-						<th>Product Image</th>
-						<th>Product Quantity</th>
-						<th> Price</th>
-						<th>Remove from Cart</th>
-					</tr>
-				</thead>
-				<tbody>{renderProducts()}</tbody>
-			</table>
+			{/* start cartTable here */}
+			{cartDetail &&
+				cartDetail.map((item, i) => (
+					<div key={i}>
+						{" "}
+						{/* <Divider style={{ border: "1px solid #D6C9C9" }} /> */}
+						<hr></hr>
+						<Card className={classes.root} elevation={0}>
+							<CardMedia
+								className={classes.cover}
+								image={retImage(item.images)}
+								title="cart"
+							/>
+							<div className={classes.details}>
+								<CardContent className={classes.content}>
+									<Grid
+										container
+										direction="row"
+										spacing={4}
+										className={classes.grid}
+									>
+										<Grid item xs={12}>
+											<Typography className={classes.title} component="p">
+												<span> {item.title} </span>
+												{/* Rolex Watch */}
+											</Typography>
+										</Grid>
+									</Grid>
+									<Grid
+										container
+										direction="row"
+										spacing={5}
+										className={classes.cont}
+									>
+										<Grid item xs={4}>
+											<Typography component="p" className={classes.pricetyp}>
+												${item.price}
+											</Typography>
+										</Grid>
+										<Grid item xs={4}>
+											<Typography
+												// className={classes.title}
+												color="textSecondary"
+												className={classes.qty}
+											>
+												Qty:{item.quantity}
+											</Typography>
+
+											{/* <Typography
+												color="textSecondary"
+												className={classes.remove}
+											>
+												QUANTITY
+											</Typography> */}
+										</Grid>
+										<Grid item xs={4}>
+											{/* <Button
+															className={classes.title}
+															color="textSecondary"
+															className={classes.qty}
+														>
+															Remove
+														</Button> */}
+											<Button
+												// className={classes.qty}
+												color="textSecondary"
+												style={{ outline: "none" }}
+												onClick={() => props.removeProduct(item._id)}
+												// className={classes.test}
+											>
+												<Typography
+													color="textSecondary"
+													className={classes.remove}
+												>
+													{" "}
+													Remove
+												</Typography>
+											</Button>
+										</Grid>
+									</Grid>
+								</CardContent>
+								{/* 0 */}
+							</div>
+						</Card>
+					</div>
+				))}
 		</div>
 	);
 }

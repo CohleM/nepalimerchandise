@@ -69,8 +69,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	root1: {
 		flexGrow: 1,
-		marginLeft: 20,
-		marginRight: 20,
+		marginLeft: 10,
+		marginRight: 10,
 		marginTop: 20,
 		[theme.breakpoints.up("lg")]: {
 			marginLeft: 100,
@@ -201,9 +201,9 @@ export default function ProductPage(props) {
 									<Paper elevation={0}>
 										<Typography
 											// className={classes.priceTitle}
-											variant="h5"
+											variant="h6"
 											component="p"
-											style={{ textAlign: "left", fontWeight: "700px" }}
+											style={{ textAlign: "left" }}
 										>
 											<span>{Product.title}</span>
 
@@ -219,7 +219,7 @@ export default function ProductPage(props) {
 								<Grid item xs={12}>
 									<Paper elevation={0}>
 										<Typography
-											className={classes}
+											// className={classes}
 											component="p"
 											style={{
 												textAlign: "left",
