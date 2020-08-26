@@ -71,7 +71,6 @@ function CartTable(props) {
 					<div key={i}>
 						{" "}
 						{/* <Divider style={{ border: "1px solid #D6C9C9" }} /> */}
-						<hr></hr>
 						<Card className={classes.root} elevation={0}>
 							<CardMedia
 								className={classes.cover}
@@ -79,21 +78,23 @@ function CartTable(props) {
 								title="cart"
 							/>
 							<div className={classes.details}>
-								<CardContent className={classes.content}>
+								<CardContent
+									className={classes.content}
+									style={{ padding: 0, paddingLeft: "10px" }}
+								>
 									<Grid
 										container
 										direction="row"
-										spacing={4}
-										className={classes.grid}
+										spacing={1}
+										// className={classes.grid}
 									>
 										<Grid item xs={12}>
 											<Typography
-												// className={classes.title}
+												className={classes.title}
 												component="p"
 												gutterBottom
 												//variant="overline"
 												color="textPrimary"
-												style={{ fontWeight: "500", fontSize: "15" }}
 											>
 												<span> {item.title} </span>
 												{/* Rolex Watch */}
@@ -103,11 +104,17 @@ function CartTable(props) {
 									<Grid
 										container
 										direction="row"
-										spacing={5}
-										className={classes.cont}
+										spacing={3}
+										// className={classes.cont}
 									>
 										<Grid item xs={4}>
-											<Typography component="p" className={classes.pricetyp}>
+											<Typography
+												component="p"
+												// className={classes.qty}
+												variant="overline"
+												style={{ color: "#FA4242" }}
+												// className={classes.qty}
+											>
 												${item.price}
 											</Typography>
 										</Grid>
@@ -142,7 +149,7 @@ function CartTable(props) {
 												underline="none"
 												color="textSecondary"
 												style={{ outline: "none" }}
-												onClick
+												onClick={props.removeProduct(item._id)}
 											>
 												{" "}
 												Remove
@@ -153,6 +160,7 @@ function CartTable(props) {
 								{/* 0 */}
 							</div>
 						</Card>
+						<hr></hr>
 					</div>
 				))}
 		</div>

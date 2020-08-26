@@ -109,8 +109,14 @@ function CartPage() {
 			<Container maxWidth="xl" className={classes.ct}>
 				<div>
 					<h1> Your Cart</h1>
-					<Grid container direction="row" spacing={10}>
+					<Grid
+						container
+						direction="row"
+						spacing={10}
+						style={{ padding: "0px" }}
+					>
 						<Grid item xs={12} md={6}>
+							<hr></hr>
 							<CartTable removeProduct={removeCart} />
 						</Grid>
 						<Grid item xs={12} md={6}>

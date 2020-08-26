@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
 		//	height: 100,
 		marginTop: 10,
 		marginBottom: 10,
+		//padding: 0,
 	},
 	details: {
 		display: "flex",
@@ -22,11 +23,14 @@ const useStyles = makeStyles((theme) => ({
 	cover: {
 		width: 50,
 		height: 50,
-		borderRadius: 0,
-
+		borderRadius: 3,
+		//padding: 0,
 		[theme.breakpoints.up("sm")]: {
 			width: 100,
 			height: 100,
+		},
+		[theme.breakpoints.down("sm")]: {
+			marginTop: 10,
 		},
 	},
 	controls: {
@@ -46,10 +50,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		fontSize: 12,
-		fontWeight: "600",
+		fontWeight: 600,
+		textTransform: "uppercase",
+		lineSpacing: "0.09333em",
+		lineHeight: 2.66,
 		[theme.breakpoints.up("sm")]: {
 			fontSize: 15,
 		},
+
 		// width: 20,
 		//maxWidth: 20,
 	},
@@ -125,16 +133,19 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: 0,
 		},
 
-		[theme.breakpoints.down("sm")]: {
-			margin: 0,
-			"& > .MuiGrid-root": {
-				padding: 0,
-			},
+		// [theme.breakpoints.down("sm")]: {
+		// 	margin: 0,
+		// 	"& > .MuiGrid-root": {
+		// 		padding: 0,
+		// 	},
+		// },
+	},
+	cont: {
+		[theme.breakpoints.up("sm")]: {
+			padding: "40px",
 		},
 	},
-	// cont: {
-	// 	spacing: 5,
-	// },
+	price: {},
 }));
 
 export { useStyles };
