@@ -53,6 +53,16 @@ function App() {
 					<Footer />
 					{/* </div> */}
 				</Router>
+				<Router>
+					<Switch>
+						<Route exact path="/register" component={registerUser} />
+						<Route exact path="/users/logout" component={Logout} />
+						<Route exact path="/users/login" component={Login} />
+					</Switch>
+
+					<Footer />
+					{/* </div> */}
+				</Router>
 			</Provider>
 		</div>
 	);

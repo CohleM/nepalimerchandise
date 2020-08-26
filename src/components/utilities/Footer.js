@@ -101,6 +101,7 @@ export default function Footer() {
 			{/* <Divider /> */}
 			<Container maxWidth="lg">
 				<div className={classes.grd}>
+					<hr></hr>
 					<Grid container direction="row" spacing={10}>
 						<Grid item md={4}>
 							{/* <Paper className={classes.paper}>xs=6</Paper> */}
@@ -189,7 +190,7 @@ export default function Footer() {
 				</Grid> */}
 					</Grid>
 				</div>
-				<Divider />
+				<hr></hr>
 				<Grid container direction="row" spacing={2}>
 					<Grid item xs={4} md={2}>
 						<div className={classes.txtDiv}>

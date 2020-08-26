@@ -149,7 +149,7 @@ function CartTable(props) {
 												underline="none"
 												color="textSecondary"
 												style={{ outline: "none" }}
-												onClick={props.removeProduct(item._id)}
+												onClick={() => props.removeProduct(item._id)}
 											>
 												{" "}
 												Remove
