@@ -18,6 +18,7 @@ import { Paper, Divider, Button } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 import Container from "@material-ui/core/Container";
 import { useStyles } from "./Style";
+import Link from "@material-ui/core/Link";
 
 function CartTable(props) {
 	const classes = useStyles();
@@ -86,7 +87,14 @@ function CartTable(props) {
 										className={classes.grid}
 									>
 										<Grid item xs={12}>
-											<Typography className={classes.title} component="p">
+											<Typography
+												// className={classes.title}
+												component="p"
+												gutterBottom
+												//variant="overline"
+												color="textPrimary"
+												style={{ fontWeight: "500", fontSize: "15" }}
+											>
 												<span> {item.title} </span>
 												{/* Rolex Watch */}
 											</Typography>
@@ -107,7 +115,8 @@ function CartTable(props) {
 											<Typography
 												// className={classes.title}
 												color="textSecondary"
-												className={classes.qty}
+												// className={classes.qty}
+												variant="overline"
 											>
 												Qty:{item.quantity}
 											</Typography>
@@ -127,21 +136,17 @@ function CartTable(props) {
 														>
 															Remove
 														</Button> */}
-											<Button
-												// className={classes.qty}
+
+											<Link
+												variant="overline"
+												underline="none"
 												color="textSecondary"
 												style={{ outline: "none" }}
-												onClick={() => props.removeProduct(item._id)}
-												// className={classes.test}
+												onClick
 											>
-												<Typography
-													color="textSecondary"
-													className={classes.remove}
-												>
-													{" "}
-													Remove
-												</Typography>
-											</Button>
+												{" "}
+												Remove
+											</Link>
 										</Grid>
 									</Grid>
 								</CardContent>

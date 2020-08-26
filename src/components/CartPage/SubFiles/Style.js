@@ -120,8 +120,16 @@ const useStyles = makeStyles((theme) => ({
 	grid: {
 		marginTop: -30,
 		marginBottom: -30,
+		padding: 0,
 		[theme.breakpoints.up("sm")]: {
-			marginBottom: 20,
+			marginBottom: 0,
+		},
+
+		[theme.breakpoints.down("sm")]: {
+			margin: 0,
+			"& > .MuiGrid-root": {
+				padding: 0,
+			},
 		},
 	},
 	// cont: {
