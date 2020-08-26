@@ -14,7 +14,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import {
 	Typography,
 	AppBar,
@@ -232,13 +233,21 @@ function Navbar(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
-
+	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
 
 	const handleDrawerClose = () => {
 		setOpen(false);
+	};
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
 	};
 	const isAuth = useSelector((state) => state.auth.isAuthenticated);
 	//let prodCount = 0;
@@ -304,7 +313,8 @@ function Navbar(props) {
 									aria-label="Save"
 									className={classes.icons}
 									style={{ outline: "none" }}
-									onClick={() => props.history.push("/users/login")}
+									aria-haspopup="true"
+									onClick={handleClick}
 								>
 									<PermIdentityIcon style={{ fontSize: "20px" }} />
 								</IconButton>
@@ -361,6 +371,23 @@ function Navbar(props) {
 					</IconButton>
 				</div>
 				<Divider />
+				<Menu
+					id="simple-menu"
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}
+				>
+					<MenuItem onClick={() => props.history.push("/users/cartPage")}>
+						Settings
+					</MenuItem>
+					<MenuItem onClick={() => props.history.push("/users/history")}>
+						History
+					</MenuItem>
+					<MenuItem onClick={() => props.history.push("/users/logout")}>
+						Logout
+					</MenuItem>
+				</Menu>
 				<List>
 					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
 						<ListItem button key={text}>

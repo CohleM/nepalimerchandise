@@ -10,7 +10,6 @@ function HomePage() {
 			<PhotoGrid />
 			<Cards />
 			<CardsWithReview />
-			<Footer />
 		</div>
 	);
 }
