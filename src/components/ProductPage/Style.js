@@ -105,6 +105,10 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		height: "auto",
 	},
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		fontWeight: theme.typography.fontWeightRegular,
+	},
 	// cont: {
 	// 	spacing: 5,
 	// },

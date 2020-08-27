@@ -66,6 +66,10 @@ function CartPage() {
 		}
 	}, [cartDetail]);
 
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	const removeCart = (productId) => {
 		//console.log(productId);
 		dispatch(removeFromCart(productId));

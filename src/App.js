@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import registerUser from "./components/users/registerUser";
-import Navbar from "./components/navbar.component";
+import Navbar from "./components/Navbar/navbar.component";
 import ExerciseList from "./components/exercises-list.component";
 import EditExercise from "./components/edit-exercise.component";
 import CreateExercise from "./components/create-exercise.component";
@@ -56,6 +56,7 @@ function App() {
 	useEffect(() => {
 		console.log(store);
 		store.dispatch(loadUser());
+		window.scrollTo(0, 0);
 	}, []);
 
 	return (

@@ -18,7 +18,10 @@ import React, { useState, useEffect } from "react";
 import Cards from "../HomePage/sections/Cards";
 import Footer from "../utilities/Footer";
 import { useStyles } from "./Style";
-
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 export default function ProductPage(props) {
 	const classes = useStyles();
 	const theme = useTheme();
@@ -38,6 +41,13 @@ export default function ProductPage(props) {
 			.catch((err) => {
 				console.log(err);
 			});
+	}, []);
+
+	// useEffect(() => {
+	// 	window.scrollTo({ top: 0, behavior: "smooth" });
+	// }, []);
+	useEffect(() => {
+		window.scrollTo(0, 0);
 	}, []);
 
 	const [Images, setImages] = useState([]);
@@ -128,10 +138,10 @@ export default function ProductPage(props) {
 						</Grid>
 					</div>
 					<hr style={{ marginTop: "50px", marginBottom: "25px" }}></hr>
-					<Typography variant="h6" component="p" style={{ textAlign: "left" }}>
+					{/* <Typography variant="h6" component="p" style={{ textAlign: "left" }}>
 						<span>{Product.description}</span>
 
-						{/* Rolex Watch */}
+					
 					</Typography>
 					<div style={{ width: "100%", marginTop: "20px" }}>
 						<Typography
@@ -149,9 +159,40 @@ export default function ProductPage(props) {
 								Strap Colour: Grey Closure :Buckle{" "}
 							</span>
 
-							{/* Rolex Watch */}
 						</Typography>
-					</div>
+					</div> */}
+					<Accordion
+						elevation={0}
+						style={{ border: "1px solid #D6C9C9", borderRadius: "0px" }}
+					>
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="panel1a-content"
+							id="panel1a-header"
+						>
+							<Typography className={classes.heading}>
+								Product Details
+							</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Typography
+								variant="overline"
+								component="p"
+								style={{ textAlign: "left" }}
+							>
+								<span>
+									{Product.description}
+									100% genuine (The SELLER guarantees the authenticity of the
+									product) Brand Series: Sonata Model Number : 77075PP04 For:
+									Men Water Resistant : Yes 1 Year Manufacturer Warranty DIAL
+									Movement : Quartz Display Type : Digital Case Thickness :
+									15.6mm Case Length : 52.5mm Case Width : 48mm BODY Case
+									Material : Plastic Dial Color: Grey Strap Material : Plastic
+									Case Shape: Round Strap Colour: Grey Closure :Buckle{" "}
+								</span>
+							</Typography>
+						</AccordionDetails>
+					</Accordion>
 				</Container>
 			</div>
 			<Cards />

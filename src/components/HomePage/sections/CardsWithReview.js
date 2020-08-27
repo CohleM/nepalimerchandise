@@ -132,6 +132,7 @@ function CenteredGrid(props) {
 		price: [],
 	});
 	const [Searchitems, setSearchitems] = useState("");
+
 	//useEffect is similar to  componentDidMount it executes before loading the actual page
 	//const dispatch = useDispatch();
 	const getProducts = (variables) => {
@@ -225,65 +226,6 @@ function CenteredGrid(props) {
 		console.log(newSearchItems);
 		setSkip(0);
 	};
-
-	var Items = [
-		{
-			image: image,
-			category: "BEAUTY",
-			description: "2,153 items in this category",
-			price: 200,
-			rating: 1,
-		},
-		{
-			image: two,
-			category: "ELECTRONICS",
-			description: "2,153 items in this category",
-			price: 300,
-			rating: 2,
-		},
-		{
-			image: image,
-			category: "BEAUTY",
-			description: "2,153 items in this category",
-			price: 500,
-			rating: 3,
-		},
-		{
-			image: two,
-			category: "ELECTRONICS",
-			description: "2,153 items in this category",
-			price: 800,
-			rating: 4,
-		},
-		{
-			image: image,
-			category: "BEAUTY",
-			description: "2,153 items in this category",
-			price: 1100,
-			rating: 4,
-		},
-		{
-			image: two,
-			category: "ELECTRONICS",
-			description: "2,153 items in this category",
-			price: 2300,
-			rating: 5,
-		},
-		{
-			image: image,
-			category: "BEAUTY",
-			description: "2,153 items in this category",
-			price: 1100,
-			rating: 4,
-		},
-		{
-			image: two,
-			category: "ELECTRONICS",
-			description: "2,153 items in this category",
-			price: 2300,
-			rating: 5,
-		},
-	];
 
 	return (
 		<div className={classes.root} style={{ backgroundColor: "white" }}>
