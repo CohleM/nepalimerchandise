@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -29,95 +28,8 @@ import { useDispatch } from "react-redux";
 // import { continents, price } from "../utilities/Datas";
 // import RadioBox from "../utilities/RadioBox";
 // import SearchFeature from "../utilities/SearchFeature";
-
+import { useStyles } from "./Styles";
 const { Meta } = Card;
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-		marginLeft: 10,
-		marginRight: 10,
-		[theme.breakpoints.up("lg")]: {
-			marginLeft: 100,
-			marginRight: 100,
-		},
-	},
-	paper: {
-		padding: theme.spacing(2),
-		textAlign: "center",
-		color: theme.palette.text.secondary,
-	},
-	root1: {
-		maxWidth: 345,
-		borderRadius: 0,
-		border: "1px solid #D6C9C9",
-	},
-	media: {
-		height: 100,
-
-		[theme.breakpoints.up("sm")]: {
-			height: 200,
-		},
-	},
-	typ: {
-		//fontFamily: "Roboto",
-		fontWeight: "500",
-		fontSize: "13px",
-		textAlign: "center",
-		[theme.breakpoints.up("sm")]: {
-			fontWeight: "500",
-			fontSize: "18px",
-			textAlign: "center",
-		},
-	},
-	box: {
-		marginTop: 20,
-		textAlign: "center",
-		marginBottom: 0,
-	},
-	pricetyp: {
-		fontWeight: "600",
-		color: "#FA4242",
-		fontSize: "13px",
-		[theme.breakpoints.up("sm")]: {
-			fontWeight: "600",
-			color: "#FA4242",
-			fontSize: "18px",
-		},
-	},
-	catt: {
-		marginTop: "25px",
-		marginBottom: "25px",
-		fontWeight: "600",
-		fontSize: "16px",
-		[theme.breakpoints.up("sm")]: {
-			marginTop: "50px",
-			marginBottom: "50px",
-			fontWeight: "600",
-			fontSize: "24px",
-		},
-	},
-	lm: {
-		//fontFamily: "Roboto",
-		fontWeight: "500",
-		fontSize: "10px",
-		textAlign: "center",
-		marginTop: 20,
-		marginBottom: 20,
-		[theme.breakpoints.up("sm")]: {
-			fontWeight: "500",
-			fontSize: "18px",
-			textAlign: "center",
-			marginTop: 70,
-			marginBottom: 70,
-			backgroundColor: "white",
-		},
-	},
-	// ct: {
-	// 	marginLeft: 20,
-	// 	marginRight: 20,
-	// },
-}));
 
 function CenteredGrid(props) {
 	const [value, setValue] = React.useState(2);
@@ -246,9 +158,21 @@ function CenteredGrid(props) {
 	return (
 		<div className={classes.root} style={{ backgroundColor: "white" }}>
 			<Container maxWidth="xl" className={classes.ct}>
-				<Typography gutterBottom className={classes.catt}>
-					FEATURED
-				</Typography>
+				{searchValue && searchValue.length > 0 ? (
+					<div styles={{}}>
+						{" "}
+						<Typography className={classes.searchres} color="textSecondary">
+							Your Search results for:{" "}
+						</Typography>
+						<Typography gutterBottom className={classes.catt1}>
+							"{searchValue}"
+						</Typography>
+					</div>
+				) : (
+					<Typography gutterBottom className={classes.catt}>
+						FEATURED
+					</Typography>
+				)}
 
 				<Grid container spacing={2}>
 					{Products.map((item, i) => (
