@@ -32,15 +32,24 @@ function Login(props) {
 	const [email, setemail] = useState("");
 	const [password, setpassword] = useState("");
 
+	const checkError = useSelector((state) => state.error.type);
+
+	const errorMessage = useSelector((state) => state.error.msg);
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const data = useSelector((state) => state.auth);
 	const error = useSelector((state) => state.error);
-
+	const [emailError, setemailError] = useState("");
+	const [passwordError, setpasswordError] = useState("");
 	const dispatch = useDispatch();
 	//very nice mofo saved me some time yollooo
 	useEffect(() => {
 		if (isAuthenticated) props.history.push("/");
 	}, [isAuthenticated]);
+
+	useEffect(() => {
+		if (checkError == "email") setemailError(errorMessage);
+		else if (checkError == "password") setpasswordError(errorMessage);
+	}, [checkError]);
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
@@ -86,20 +95,24 @@ function Login(props) {
 								</Grid>
 								<Grid item xs={12}>
 									<TextField
+										error
 										fullWidth
 										id="standard-basic"
 										label="Email"
 										onChange={(e) => setemail(e.target.value)}
+										helperText={emailError}
 									/>
 								</Grid>
 
 								<Grid item xs={12}>
 									<TextField
+										error
 										id="standard-password-input"
 										label="Password"
 										type="password"
 										autoComplete="current-password"
 										fullWidth
+										helperText={passwordError}
 										onChange={(e) => setpassword(e.target.value)}
 									/>
 								</Grid>

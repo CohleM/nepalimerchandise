@@ -10,12 +10,14 @@ export default function (state = initialState, action) {
 		case GET_ERRORS:
 			return {
 				msg: action.payload.msg,
+				type: action.payload.type,
 				status: action.payload.status,
 				id: action.payload.id,
 			};
 		case CLEAR_ERRORS:
 			return {
 				msg: {},
+				type: {},
 				status: null,
 				id: null,
 			};

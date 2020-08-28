@@ -136,15 +136,21 @@ export const login = ({ email, password }) => (dispatch) => {
 				type: LOGIN_SUCCESS,
 				payload: res.data,
 			});
+			console.log("this is res", res);
 		})
 		.catch((err) => {
+			console.log("this is error", err);
 			dispatch(
-				returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+				returnErrors(
+					err.response.data.message,
+					err.response.data.type,
+					err.response.status,
+					"LOGIN_FAIL"
+				)
 			);
 			dispatch({
 				type: LOGIN_FAIL,
 			});
-			console.log(err);
 		});
 };
 
