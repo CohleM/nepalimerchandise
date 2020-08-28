@@ -132,7 +132,7 @@ function CenteredGrid(props) {
 		price: [],
 	});
 	const [Searchitems, setSearchitems] = useState("");
-
+	const searchValue = props.match.params.searchValue;
 	//useEffect is similar to  componentDidMount it executes before loading the actual page
 	//const dispatch = useDispatch();
 	const getProducts = (variables) => {
@@ -155,13 +155,29 @@ function CenteredGrid(props) {
 	};
 
 	useEffect(() => {
-		const variables = {
-			skip: Skip,
-			limit: Limit,
-		};
-		getProducts(variables);
+		if (searchValue && searchValue.length > 0) {
+			console.log("this is lenght", searchValue.length);
+			const variables = {
+				skip: 0,
+				limit: Limit,
+				filters: Filters,
+				searchItem: searchValue,
+			};
+			getProducts(variables);
+			setSkip(0);
+		} else {
+			const variables = {
+				skip: Skip,
+				limit: Limit,
+			};
+			getProducts(variables);
+		}
 		//dispatch(loadUser());
-	}, []);
+	}, [searchValue]);
+
+	// useEffect(() => {
+
+	// }, [searchValue]);
 
 	const onLoadMore = () => {
 		let skip = Skip + Limit;
@@ -220,7 +236,7 @@ function CenteredGrid(props) {
 			skip: 0,
 			limit: Limit,
 			filters: Filters,
-			searchItem: newSearchItems,
+			searchItem: props.match.params.searchValue,
 		};
 		getProducts(variables);
 		console.log(newSearchItems);

@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
 		// borderTopLeftRadius: 20,
 		borderBottomLeftRadius: 20,
 		color: "white",
+		textAlign: "center",
 		// border: "1px solid white",
 	},
 	inputRoot: {

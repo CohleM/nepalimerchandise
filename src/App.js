@@ -23,8 +23,13 @@ import History from "./components/users/History";
 import HomePage from "./components/HomePage/HomePage";
 import Footer from "./components/utilities/Footer";
 import ProductPage from "./components/ProductPage/ProductPage";
-
+import SearchFeature from "./components/utilities/SearchFeature";
+import CardsWithReview from "./components/HomePage/sections/CardsWithReview";
 const Main = withRouter(({ location }) => {
+	// const [Searchitems, setSearchitems] = useState("");
+	// const forSearch = (newSearchItems) => {
+	// 	setSearchitems(newSearchItems);
+	// };
 	return (
 		<div>
 			{location.pathname !== "/users/login" &&
@@ -38,6 +43,7 @@ const Main = withRouter(({ location }) => {
 				<Route exact path="/product/upload" component={UploadProduct} />
 				<Route exact path="/user" component={CreateUser} />
 				<Route exact path="/product/:productId" component={ProductPage} />
+				<Route exact path="/search/:searchValue" component={CardsWithReview} />
 				<Route exact path="/users/register" component={registerUser} />
 				<Route exact path="/users/logout" component={Logout} />
 				<Route exact path="/users/login" component={Login} />

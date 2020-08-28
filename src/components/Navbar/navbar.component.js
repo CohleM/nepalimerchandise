@@ -59,6 +59,19 @@ function Navbar(props) {
 	//if (isAuth) prodCount = useSelector((state) => state.auth.user.cart);
 	const prodCount = useSelector((state) => state.auth.user.cart);
 
+	// const searchitems = () => {
+	// 	props.history.push(`/users/logout`);
+	// };
+
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			// props.refreshSearch(event.currentTarget.value)
+			// props.history.push(`/users/logout`);
+
+			props.history.push(`/search/${event.currentTarget.value}`);
+		}
+	};
+
 	//console.log(prodCount, prodCount.length);
 	let count = 0;
 	if (prodCount && prodCount.length >= 1) count = prodCount.length;
@@ -81,7 +94,7 @@ function Navbar(props) {
 				></IconButton> */}
 
 					<Typography variant="title" color="inherit" className={classes.typ}>
-						logo
+						logo h
 					</Typography>
 					<div className={classes.search1}>
 						<div className={classes.searchIcon}>
@@ -89,11 +102,15 @@ function Navbar(props) {
 						</div>
 						<InputBase
 							//placeholder="Search…"
+							fullWidth
 							classes={{
 								root: classes.inputRoot,
 								input: classes.inputInput,
 							}}
 							inputProps={{ "aria-label": "search" }}
+							// onChange={searchitems}
+
+							onKeyDown={handleKeyDown}
 						/>
 					</div>
 
