@@ -93,6 +93,7 @@ function Item(props) {
 	return (
 		<Paper style={{ outline: "none" }} elevation={0}>
 			<img src={props.item.image} className={classes.img2} />
+			{console.log(props.item.image)}
 			{/* <h2>{props.item.name}</h2>
 			<p>{props.item.description}</p>
 

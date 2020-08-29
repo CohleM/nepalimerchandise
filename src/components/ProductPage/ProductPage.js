@@ -9,6 +9,7 @@ import { Paper, Divider, Button } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 import Container from "@material-ui/core/Container";
 import Carousel from "react-material-ui-carousel";
+//import Carousel from "react-elastic-carousel";
 import Rating from "@material-ui/lab/Rating";
 // import one from "../images/beauty.jpg";
 import axios from "axios";
@@ -22,6 +23,10 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CardMedia from "@material-ui/core/CardMedia";
+
+import ImageGallery from "react-image-gallery";
+
 export default function ProductPage(props) {
 	const classes = useStyles();
 	const theme = useTheme();
@@ -50,23 +55,44 @@ export default function ProductPage(props) {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const [Images, setImages] = useState([]);
+	const [items, setitems] = useState([]);
+
+	//	var items = [];
 	useEffect(() => {
 		let images = [];
 		if (Product.images) {
+			console.log("this is product", Product.images);
 			Product.images.map((image) => {
 				console.log(image);
-				images.push(image);
+				images.push({
+					original: `http://localhost:5000/uploads/${image}`,
+					thumbnail: `http://localhost:5000/uploads/${image}`,
+				});
 			});
-			setImages(images);
+			setitems(images);
+			//items = images;
+			console.log("bhaak", items);
 		}
 
-		console.log("prr", Images);
+		// console.log("prr", Images);
 	}, [Product]);
 
 	const addToCartHandler = () => {
 		dispatch(addToCart(Product._id));
 	};
+
+	// var items = [
+	// 	{
+	// 		image: two,
+	// 		name: "Random Name #1",
+	// 		description: "Probably the most random thing you have ever seen!",
+	// 	},
+	// 	{
+	// 		image: two,
+	// 		name: "Random Name #2",
+	// 		description: "Hello World!",
+	// 	},
+	// ];
 
 	return (
 		<div>
@@ -75,12 +101,14 @@ export default function ProductPage(props) {
 					<div>
 						<Grid container direction="row" spacing={5}>
 							<Grid item xs={12} md={6}>
-								<Carousel elevation={0}>
-									{Images.map((item, i) => (
-										<Item key={i} item={item} />
-									))}
-									{console.log("Bottom", Images)}
-								</Carousel>
+								<ImageGallery
+									items={items}
+									showNav={false}
+									showPlayButton={false}
+									showBullets={true}
+									showThumbnails={false}
+								/>
+								;
 							</Grid>
 							<Grid item xs={12} md={6}>
 								<Grid container direction="column" spacing={3} style={{}}>
@@ -203,16 +231,24 @@ export default function ProductPage(props) {
 function Item(props) {
 	const classes = useStyles();
 	return (
-		<Paper style={{ outline: "none" }} elevation={0}>
-			{console.log("prosss", props)}
-			<img
-				src={`http://localhost:5000/uploads/${props.item}`}
-				className={classes.img2}
-			/>
-			{/* <h2>{props.item.name}</h2>
-			<p>{props.item.description}</p>
+		// <Paper style={{ outline: "none" }} elevation={0}>
+		// 	{console.log("prosss", props)}
+		// 	<img
+		// 		src={`http://localhost:5000/uploads/${props.item.image}`}
+		// 		className={classes.img2}
+		// 	/>
+		// 	{/* <h2>{props.item.name}</h2>
+		// 	<p>{props.item.description}</p>
 
-			<Button className="CheckButton">Check it out!</Button> */}
+		// 	<Button className="CheckButton">Check it out!</Button> */}
+		// </Paper>
+
+		<Paper style={{ outline: "none" }} elevation={0}>
+			{/* <img src={props.item.image} className={classes.img2} /> */}
+			<CardMedia className="Media" image={props.item.image}>
+				hello
+			</CardMedia>
+			{console.log(props.item.image)}
 		</Paper>
 	);
 }
