@@ -24,15 +24,37 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CardMedia from "@material-ui/core/CardMedia";
-
+import Snackbar from "@material-ui/core/Snackbar";
 import ImageGallery from "react-image-gallery";
+import Slide from "@material-ui/core/Slide";
+
+function SlideTransition(props) {
+	return <Slide {...props} direction="up" />;
+}
 
 export default function ProductPage(props) {
 	const classes = useStyles();
 	const theme = useTheme();
-
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const productId = props.match.params.productId;
 	const [Product, setProduct] = useState([]);
+
+	// const [state, setState] = React.useState({
+	// 	open: false,
+	// 	vertical: "vertical",
+	// 	horizontal: "right",
+	// });
+	const [open, setopen] = useState(false);
+	// const { vertical, horizontal, open } = state;
+
+	// const handleClick = (newState) => () => {
+	// 	setState({ open: true, ...newState });
+	// };
+
+	const handleClose = () => {
+		setopen(false);
+	};
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		axios
@@ -79,6 +101,7 @@ export default function ProductPage(props) {
 
 	const addToCartHandler = () => {
 		dispatch(addToCart(Product._id));
+		if (!isAuthenticated) setopen(true);
 	};
 
 	// var items = [
@@ -159,6 +182,13 @@ export default function ProductPage(props) {
 											>
 												ADD TO CART
 											</Button>
+											<Snackbar
+												style={{}}
+												open={open}
+												onClose={handleClose}
+												message="Please Login or Register!"
+												TransitionComponent={SlideTransition}
+											/>
 										</div>
 									</Grid>
 								</Grid>

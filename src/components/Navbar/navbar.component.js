@@ -125,7 +125,9 @@ function Navbar(props) {
 									onClick={() => props.history.push("/users/cartPage")}
 								>
 									<Badge badgeContent={count} color="secondary">
-										<ShoppingCartIcon style={{ fontSize: "20px" }} />
+										<ShoppingCartIcon
+											style={{ height: "20px", width: "20px" }}
+										/>
 									</Badge>
 								</IconButton>
 							</Grid>
@@ -138,7 +140,7 @@ function Navbar(props) {
 									aria-haspopup="true"
 									onClick={handleClick}
 								>
-									<PermIdentityIcon style={{ fontSize: "20px" }} />
+									<PermIdentityIcon style={{ height: "20px", width: "20px" }} />
 								</IconButton>
 							</Grid>
 							<Grid item xs={4}>
@@ -151,7 +153,7 @@ function Navbar(props) {
 									className={clsx(open && classes.hide, classes.icons)}
 									style={{ outline: "none" }}
 								>
-									<MenuIcon style={{ fontSize: "20px" }} />
+									<MenuIcon style={{ height: "20px", width: "20px" }} />
 								</IconButton>
 							</Grid>
 						</Grid>
