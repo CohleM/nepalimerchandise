@@ -49,6 +49,7 @@ function Login(props) {
 	useEffect(() => {
 		if (checkError == "email") {
 			setemailError(errorMessage);
+			setpasswordError("");
 		} else if (checkError == "password") {
 			setpasswordError(errorMessage);
 			setemailError("");

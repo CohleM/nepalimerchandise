@@ -30,16 +30,37 @@ function RegisterUser(props) {
 	const [username, setusername] = useState("");
 	const [email, setemail] = useState("");
 	const [password, setpassword] = useState("");
+	const checkError = useSelector((state) => state.error.type);
 
+	const errorMessage = useSelector((state) => state.error.msg);
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const data = useSelector((state) => state.auth);
 	const error = useSelector((state) => state.error);
+	const [emailError, setemailError] = useState("");
+	const [passwordError, setpasswordError] = useState("");
 
+	const [usernameError, setusernameError] = useState("");
 	const dispatch = useDispatch();
 	//very nice mofo saved me some time yollooo
 	useEffect(() => {
 		if (isAuthenticated) props.history.push("/");
 	}, [isAuthenticated]);
+
+	useEffect(() => {
+		if (checkError == "email") {
+			setemailError(errorMessage);
+			setpasswordError("");
+			setusernameError("");
+		} else if (checkError == "password") {
+			setpasswordError(errorMessage);
+			setemailError("");
+			setusernameError("");
+		} else if (checkError == "name") {
+			setusernameError(errorMessage);
+			setemailError("");
+			setpasswordError("");
+		}
+	}, [checkError, errorMessage]);
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
@@ -53,6 +74,12 @@ function RegisterUser(props) {
 		// this is register actioni
 
 		dispatch(register(newUser));
+
+		if (!checkError) {
+			setusernameError("");
+			setpasswordError("");
+			setemailError("");
+		}
 	};
 
 	return (
@@ -90,29 +117,35 @@ function RegisterUser(props) {
 								</Grid>
 								<Grid item xs={12}>
 									<TextField
+										error={usernameError}
 										fullWidth
 										id="standard-basic"
 										label="Username"
 										onChange={(e) => setusername(e.target.value)}
+										helperText={usernameError}
 									/>
 								</Grid>
 								<Grid item xs={12}>
 									<TextField
+										error={emailError}
 										fullWidth
 										id="standard-basic"
 										label="Email"
 										onChange={(e) => setemail(e.target.value)}
+										helperText={emailError}
 									/>
 								</Grid>
 
 								<Grid item xs={12}>
 									<TextField
+										error={passwordError}
 										id="standard-password-input"
 										label="Password"
 										type="password"
 										autoComplete="current-password"
 										fullWidth
 										onChange={(e) => setpassword(e.target.value)}
+										helperText={passwordError}
 									/>
 								</Grid>
 								<Grid item xs={12}>

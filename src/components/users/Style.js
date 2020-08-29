@@ -130,6 +130,8 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		width: "100%",
 		height: "50px",
+		lineHeight: 2.66,
+		letterSpacing: "0.08333em",
 	},
 	remove: {
 		fontSize: 11,
