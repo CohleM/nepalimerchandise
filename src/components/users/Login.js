@@ -47,9 +47,13 @@ function Login(props) {
 	}, [isAuthenticated]);
 
 	useEffect(() => {
-		if (checkError == "email") setemailError(errorMessage);
-		else if (checkError == "password") setpasswordError(errorMessage);
-	}, [checkError]);
+		if (checkError == "email") {
+			setemailError(errorMessage);
+		} else if (checkError == "password") {
+			setpasswordError(errorMessage);
+			setemailError("");
+		}
+	}, [checkError, errorMessage]);
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
@@ -58,10 +62,13 @@ function Login(props) {
 			email,
 			password,
 		};
-
 		// this is register actioni
 
 		dispatch(login(newUser));
+		if (!checkError) {
+			setpasswordError("");
+			setemailError("");
+		}
 	};
 
 	return (
@@ -95,7 +102,7 @@ function Login(props) {
 								</Grid>
 								<Grid item xs={12}>
 									<TextField
-										error
+										error={emailError}
 										fullWidth
 										id="standard-basic"
 										label="Email"
@@ -106,7 +113,7 @@ function Login(props) {
 
 								<Grid item xs={12}>
 									<TextField
-										error
+										error={passwordError}
 										id="standard-password-input"
 										label="Password"
 										type="password"

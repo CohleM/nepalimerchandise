@@ -81,11 +81,18 @@ router.route("/login").post(async (req, res) => {
 
 	try {
 		const user = await User.findOne({ email: req.body.email });
-		if (!user) return res.status(400).send("Email doesnot  Exists");
+		if (!user)
+			return res
+				.status(400)
+				.send({ message: "email doesn't  exist", type: "email" });
+
 		//   res.send(error);
 
 		const checkIf = await bcrypt.compareSync(req.body.password, user.password);
-		if (!checkIf) return res.status(400).send("password doesnt match");
+		if (!checkIf)
+			return res
+				.status(400)
+				.send({ message: "password doesn't match", type: "password" });
 
 		jwt.sign(
 			//payload : the thing we need to take in to verify token
