@@ -202,15 +202,25 @@ function Navbar(props) {
 					open={Boolean(anchorEl)}
 					onClose={handleClose}
 				>
-					<MenuItem onClick={() => props.history.push("/users/cartPage")}>
-						Settings
-					</MenuItem>
-					<MenuItem onClick={() => props.history.push("/users/history")}>
-						History
-					</MenuItem>
-					<MenuItem onClick={() => props.history.push("/users/logout")}>
-						Logout
-					</MenuItem>
+					{!isAuth ? (
+						<div>
+							<MenuItem onClick={() => props.history.push("/users/register")}>
+								Register
+							</MenuItem>
+							<MenuItem onClick={() => props.history.push("/users/login")}>
+								Login
+							</MenuItem>
+						</div>
+					) : (
+						<div>
+							<MenuItem onClick={() => props.history.push("/users/history")}>
+								History
+							</MenuItem>
+							<MenuItem onClick={() => props.history.push("/users/logout")}>
+								Logout
+							</MenuItem>
+						</div>
+					)}
 				</Menu>
 				<List>
 					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
