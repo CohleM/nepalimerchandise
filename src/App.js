@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import registerUser from "./components/users/registerUser";
 import Navbar from "./components/Navbar/navbar.component";
-import ExerciseList from "./components/exercises-list.component";
-import EditExercise from "./components/edit-exercise.component";
-import CreateExercise from "./components/create-exercise.component";
-import CreateUser from "./components/create-user.component";
+// import ExerciseList from "./components/exercises-list.component";
+// import EditExercise from "./components/edit-exercise.component";
+// import CreateExercise from "./components/create-exercise.component";
+// import CreateUser from "./components/create-user.component";
 import UploadProduct from "./components/products/uploadProduct";
 import LandingPage from "./components/products/LandingPage";
 //             { <Route path = "/" exact component  = {ExerciseList} /> }
@@ -38,10 +38,10 @@ const Main = withRouter(({ location }) => {
 			<Route exact path="/" exact component={HomePage} />
 			<br />
 			<Switch>
-				<Route exact path="/edit/:id" component={EditExercise} />
-				<Route exact path="/create" component={CreateExercise} />
+				{/* <Route exact path="/edit/:id" component={EditExercise} /> */}
+				{/* <Route exact path="/create" component={CreateExercise} /> */}
 				<Route exact path="/product/upload" component={UploadProduct} />
-				<Route exact path="/user" component={CreateUser} />
+				{/* <Route exact path="/user" component={CreateUser} /> */}
 				<Route exact path="/product/:productId" component={ProductPage} />
 				<Route exact path="/search/:searchValue" component={CardsWithReview} />
 				<Route exact path="/users/register" component={registerUser} />
