@@ -251,7 +251,12 @@ function CenteredGrid(props) {
 					>
 						<Button
 							size="medium"
-							style={{ outline: "none", margin: "0px" }}
+							style={{
+								outline: "none",
+								margin: "0px",
+								borderBottom: "2px solid #D6C9C9",
+								borderRadius: "0px",
+							}}
 							onClick={onLoadMore}
 						>
 							LOAD MORE

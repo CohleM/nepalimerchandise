@@ -80,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: "10px",
 		textAlign: "center",
 		marginTop: 20,
-		marginBottom: 20,
+		marginBottom: 0,
+
 		[theme.breakpoints.up("sm")]: {
 			fontWeight: "500",
 			fontSize: "18px",

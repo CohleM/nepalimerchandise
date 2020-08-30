@@ -131,7 +131,6 @@ export default function ProductPage(props) {
 									showBullets={true}
 									showThumbnails={false}
 								/>
-								;
 							</Grid>
 							<Grid item xs={12} md={6}>
 								<Grid container direction="column" spacing={3} style={{}}>
