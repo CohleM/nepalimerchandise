@@ -122,13 +122,17 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
-		marginLeft: "-10px",
+
 		//marginLeft: "90%",
 		// background: "white",
 		// borderTopLeftRadius: 20,
 		borderBottomLeftRadius: 20,
 		color: "white",
 		textAlign: "center",
+		[theme.breakpoints.up("md")]: {
+			//marginLeft: theme.spacing(3),
+			marginLeft: "-10px",
+		},
 		// border: "1px solid white",
 	},
 	inputRoot: {

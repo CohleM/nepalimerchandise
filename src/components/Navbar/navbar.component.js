@@ -66,7 +66,8 @@ function Navbar(props) {
 	// };
 
 	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
+		console.log("this is key ", event.key);
+		if (event.key === "Enter" || event.key === "KEYCODE_ENTER") {
 			// props.refreshSearch(event.currentTarget.value)
 			// props.history.push(`/users/logout`);
 
@@ -180,12 +181,14 @@ function Navbar(props) {
 							<SearchIcon style={{ fontSize: "20px" }} />
 						</div>
 						<InputBase
+							fullWidth
 							//placeholder="Search…"
 							classes={{
 								root: classes.inputRoot,
 								input: classes.inputInput,
 							}}
 							inputProps={{ "aria-label": "search" }}
+							onKeyDown={handleKeyDown}
 						/>
 					</div>
 				</Toolbar>
