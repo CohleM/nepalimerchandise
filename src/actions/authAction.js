@@ -14,6 +14,7 @@ import {
 	REMOVE_FROM_CART,
 	PAYMENT_SUCCESS,
 } from "./types";
+import { USER_SERVER } from "../components/config";
 import axios from "axios";
 import { returnErrors, clearErrors } from "./errorAction";
 //Checking token and loading user
@@ -40,7 +41,8 @@ export const loadUser = () => (dispatch, getState) => {
 	// }
 	// axios.get takes in an object of headers
 	axios
-		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+		// .get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+		.get(`${USER_SERVER}/users/getinfo`, tokenConfig(getState))
 		.then((res) => {
 			dispatch({
 				type: USER_LOADED,
@@ -90,7 +92,7 @@ export const register = ({ username, email, password }) => (dispatch) => {
 	console.log("this executed woow");
 	axios
 		.post(
-			"http://localhost:5000/users/register",
+			`${USER_SERVER}/users/register`,
 			{
 				name: username,
 				email: email,
@@ -129,7 +131,7 @@ export const login = ({ email, password }) => (dispatch) => {
 
 	axios
 		.post(
-			"http://localhost:5000/users/login",
+			`${USER_SERVER}/users/login`,
 			{
 				email,
 				password,
@@ -168,7 +170,7 @@ export const logout = () => (dispatch) => {
 export const addToCart = (productId) => (dispatch, getState) => {
 	axios
 		.get(
-			`http://localhost:5000/users/addToCart?id=${productId}`,
+			`${USER_SERVER}/users/addToCart?id=${productId}`,
 			tokenConfig(getState)
 		)
 		.then((res) => {
@@ -191,7 +193,7 @@ export const addToCart = (productId) => (dispatch, getState) => {
 
 export const loadCart = () => (dispatch, getState) => {
 	axios
-		.get("http://localhost:5000/users/getinfo", tokenConfig(getState))
+		.get(`${USER_SERVER}/users/getinfo`, tokenConfig(getState))
 		.then((res) => {
 			dispatch({
 				type: CART_LOADING,
@@ -209,7 +211,7 @@ export const loadCart = () => (dispatch, getState) => {
 export const getCartItems = (productIds, userCart) => (dispatch, getState) => {
 	const req = axios
 		.get(
-			`http://localhost:5000/product/product_by_id?id=${productIds}&type=array`,
+			`${USER_SERVER}/product/product_by_id?id=${productIds}&type=array`,
 			tokenConfig(getState)
 		)
 		.then((response) => {
@@ -239,7 +241,7 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 	console.log("this is remove from cart");
 	const req = axios
 		.get(
-			`http://localhost:5000/users/removeFromCart?id=${productId}`,
+			`${USER_SERVER}/users/removeFromCart?id=${productId}`,
 			tokenConfig(getState)
 		)
 		.then((res) => {
@@ -276,7 +278,7 @@ export const paymentSuccess = (payment, cartDetail) => (dispatch, getState) => {
 	console.log("paymentSucceeFrontenddd");
 	axios
 		.post(
-			"http://localhost:5000/users/paymentSuccess",
+			`${USER_SERVER}/users/paymentSuccess`,
 			{
 				payment,
 				cartDetail,

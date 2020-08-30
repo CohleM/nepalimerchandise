@@ -29,6 +29,7 @@ import { useDispatch } from "react-redux";
 // import RadioBox from "../utilities/RadioBox";
 // import SearchFeature from "../utilities/SearchFeature";
 import { useStyles } from "./Styles";
+import { USER_SERVER } from "../../config";
 const { Meta } = Card;
 
 function CenteredGrid(props) {
@@ -49,7 +50,9 @@ function CenteredGrid(props) {
 	//const dispatch = useDispatch();
 	const getProducts = (variables) => {
 		axios
-			.post("http://localhost:5000/product/getProducts", variables)
+			// `${USER_SERVER}/users/getinfo`
+			// .post("http://localhost:5000/product/getProducts", variables)
+			.post(`${USER_SERVER}/product/getProducts`, variables)
 			.then((response) => {
 				if (response.data.success) {
 					// console.log(variables.loadmore)
@@ -184,7 +187,7 @@ function CenteredGrid(props) {
 								>
 									<CardMedia
 										className={classes.media}
-										image={`http://localhost:5000/uploads/${item.images[0]}`}
+										image={`${USER_SERVER}/uploads/${item.images[0]}`}
 										title={item.title}
 									/>
 									<CardContent>

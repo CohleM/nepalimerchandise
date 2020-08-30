@@ -19,7 +19,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import Container from "@material-ui/core/Container";
 import { useStyles } from "./Style";
 import Link from "@material-ui/core/Link";
-
+import { USER_SERVER } from "../../config";
 function CartTable(props) {
 	const classes = useStyles();
 	const theme = useTheme();
@@ -35,7 +35,9 @@ function CartTable(props) {
 		if (images) {
 			if (images.length > 0) {
 				let image = images[0];
-				return `http://localhost:5000/uploads/${image}`;
+				// `${USER_SERVER}`
+				// return `http://localhost:5000/uploads/${image}`;
+				return `${USER_SERVER}/uploads/${image}`;
 			}
 		}
 	};

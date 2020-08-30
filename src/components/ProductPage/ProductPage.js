@@ -27,7 +27,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Snackbar from "@material-ui/core/Snackbar";
 import ImageGallery from "react-image-gallery";
 import Slide from "@material-ui/core/Slide";
-
+import { USER_SERVER } from "../config";
 function SlideTransition(props) {
 	return <Slide {...props} direction="up" />;
 }
@@ -58,9 +58,7 @@ export default function ProductPage(props) {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		axios
-			.get(
-				`http://localhost:5000/product/product_by_id?id=${productId}&type=single`
-			)
+			.get(`${USER_SERVER}/product/product_by_id?id=${productId}&type=single`)
 			.then((response) => {
 				setProduct(response.data[0]);
 				console.log("this is data", response.data[0]);
@@ -87,8 +85,8 @@ export default function ProductPage(props) {
 			Product.images.map((image) => {
 				console.log(image);
 				images.push({
-					original: `http://localhost:5000/uploads/${image}`,
-					thumbnail: `http://localhost:5000/uploads/${image}`,
+					original: `${USER_SERVER}/uploads/${image}`,
+					thumbnail: `${USER_SERVER}/uploads/${image}`,
 				});
 			});
 			setitems(images);
