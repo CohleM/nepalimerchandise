@@ -1,14 +1,9 @@
-## Under Construction
-
-###Run Frontend
-
-<yourDirectory\nepalimerchandise>npm start
-
-###Run Backend
-
-<yourDirectory\nepalimerchandise>cd backend
-
-<yourDirectory\nepalimerchandise>nodemon server
-
-###Extras
-Download Redux DevTools Chrome Extension
+## Run Front End
+```bash
+path\to\nepalimerchandise> npm start
+```
+## Run Back End
+```bash
+path\to\nepalimerchandise> cd backend
+path\to\nepalimerchandise> nodemon server
+```
